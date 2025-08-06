@@ -7,4 +7,13 @@ export default defineConfig({
   define: {
     global: {}, // 글로벌 변수를 빈 객체로 정의
   },
+  server: {
+    proxy: {
+    '/api': {
+      target: 'http://13.209.15.193:8080',
+      changeOrigin: true,
+      // rewrite 제거!
+      },
+    },
+  },
 })

@@ -1,0 +1,26 @@
+const foodList = [
+  { name: "소담정", linkUrl: "https://naver.me/xgNETSQ6" },
+  { name: "야키", linkUrl: "https://naver.me/x2jM6r31" },
+  { name: "돈까스앤우찌", linkUrl: "https://naver.me/x1V5Cubg" },
+  { name: "일월카츠", linkUrl: "https://naver.me/GeUR1nci" },
+  { name: "스미레", linkUrl: "https://naver.me/GRo45oJ9" },
+  { name: "담솥", linkUrl: "https://naver.me/G9r5qoF8" },
+  { name: "애호락", linkUrl: "https://naver.me/xrSQBZ0r" },
+  { name: "부대찌개", linkUrl: "https://naver.me/5k7fmurG" },
+  { name: "신의주국밥", linkUrl: "https://naver.me/FpxlGDKp" },
+  { name: "대림국수", linkUrl: "https://naver.me/5l7kSApN" },
+  { name: "헤비스테이크", linkUrl: "https://naver.me/IMyGIv53" },
+  { name: "유즈라멘", linkUrl: "https://naver.me/5S9QHorh" },
+  { name: "오레노라멘", linkUrl: "https://naver.me/55rm7oGo" },
+  { name: "온센", linkUrl: "https://naver.me/5iTdAXxl" },
+  { name: "유소바", linkUrl: "https://naver.me/FxFto3zO" },
+  { name: "이도곰탕", linkUrl: "https://naver.me/xk1nx2Vs" },
+  { name: "신라제면", linkUrl: "https://naver.me/59voVT86" },
+  { name: "북촌김치재", linkUrl: "https://naver.me/xNLZsc30" },
+  { name: "떡산", linkUrl: "https://naver.me/513N4huY" },
+  { name: "수왕", linkUrl: "https://naver.me/5EUZHHRJ" },
+  { name: "등촌샤브샤브", linkUrl: "https://naver.me/5D8tiJmG" },
+  { name: "재동순두부", linkUrl: "https://naver.me/FHlgN49Y" },
+];
+
+export default foodList;

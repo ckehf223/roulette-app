@@ -18,10 +18,7 @@ function App() {
   return (
     <>
       <Header />
-      <hr></hr>
-      <div id='content-container'>
-        <RouletteBoard />
-      </div>
+      <RouletteBoard />
     </>
   )
 }

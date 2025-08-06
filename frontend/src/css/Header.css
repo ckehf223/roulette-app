@@ -1,0 +1,88 @@
+.HeaderDiv {
+  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.header-container {
+  width: 100%;
+  text-align: center;
+}
+
+.header-wrap {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  width: 70%;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.cursor-p {
+  cursor: pointer;
+}
+
+#main-logo {
+  width: 120px;
+  height: 40px;
+}
+
+.dateDiv {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.todayString {
+  font-size: 20px;
+}
+
+.dayString {
+  font-size: 15px;
+}
+
+.nav-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.nav-wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.nav-itemBox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 10px;
+  height: 100%;
+  width: 100px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  border-bottom: 2px solid black;
+  font-weight: bold;
+}
+
+.nav-item:hover {
+  border-bottom: 2px solid black;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #f3f2f2;
+  font-weight: bold;
+}
