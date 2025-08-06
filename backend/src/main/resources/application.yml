@@ -1,8 +1,4 @@
 spring:
-  config:
-    activate:
-      on-profile: local
-
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/roulette?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
@@ -16,6 +12,3 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
-
-server:
-  port: 8082
