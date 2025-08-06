@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 환경변수에서 기본 API URL 가져오기
-const BASE_URL = 'http://13.209.15.193:8080/api';
+const BASE_URL = '/api';
 
 // Axios 인스턴스 생성
 const instance = axios.create({
