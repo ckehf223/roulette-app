@@ -28,6 +28,8 @@ const ResModal = ({
     setResName("");
     setLinkUrl("");
     setRemark("");
+    setSuccessMsg('');
+    setIsSuccess(false);
     toggle();
   };
 
