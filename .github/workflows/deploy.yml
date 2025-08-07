@@ -22,7 +22,7 @@ jobs:
           port: 22
           script: |
             echo ">>> 소스 디렉토리 존재 여부 확인"
-            if [ -d "~/roulette-app/.git" ]; then
+            if [ -d "$HOME/roulette-app/.git" ]; then
               echo ">>> git pull"
               cd ~/roulette-app && git pull
             else
