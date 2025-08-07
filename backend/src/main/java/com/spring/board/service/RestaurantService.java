@@ -23,8 +23,6 @@ public class RestaurantService {
                 break;
             case "D":
                 break;
-            case "F":
-                break;
             default:
                 break;
         }
