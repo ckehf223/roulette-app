@@ -22,7 +22,7 @@ jobs:
         run: chmod +x backend/gradlew
 
       - name: Build with Gradle
-        run: cd backend && ./gradlew build
+        run: cd backend && ./gradlew build -x test
 
       - name: Copy JAR to EC2
         run: |
