@@ -10,37 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Connect & Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY  }}
-          port: 22
-          script: |
-            echo ">>> 소스 디렉토리 존재 여부 확인"
-            if [ -d "$HOME/roulette-app/.git" ]; then
-              echo ">>> git pull"
-              cd ~/roulette-app && git pull
-            else
-              echo ">>> git clone"
-              git clone https://github.com/ckehf223/roulette-app.git
-            fi
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-            echo ">>> backend 디렉토리 이동"
-            cd ~/roulette-app/backend
+      - name: Grant execute permission for Gradle
+        run: chmod +x ./gradlew
 
-            echo ">>> 실행 중인 앱 종료"
-            pkill -f 'ustra-roulette-app' || true
+      - name: Build with Gradle
+        run: ./gradlew build
 
-            echo ">>> gradle 빌드"
-            chmod +x ./gradlew
-            ./gradlew build
+      - name: Copy JAR to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar ec2-user@${{ secrets.EC2_HOST }}:/opt/ustra-roulette-app/
 
-            echo ">>> 앱 실행"
-            nohup java -jar build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar > ~/backend-app.log 2>&1 < /dev/null &
-
-            sleep 5
+      - name: Restart app via systemctl
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} 'sudo systemctl restart ustra-roulette-app'
