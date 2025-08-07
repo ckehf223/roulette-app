@@ -1,0 +1,143 @@
+/* 배경 어둡게 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-wrap {
+  width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  outline: none;
+}
+
+/* 기타 기존 스타일에 맞게 조정 */
+.modal-header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  margin-bottom: 16px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 닫기 버튼 */
+.modal-close-button {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 모달 창 내용 */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.grid-box {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  justify-content: center;
+  width: 100%;
+}
+
+.grid-title {
+  font-family: "Inter", sans-serif;
+  color: oklch(0.145 0 0);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.grid-input {
+  box-shadow: var(0 0 #0000), var(0 0 #0000), var(0 0 #0000), var(0 0 #0000),
+    var(0 0 #0000);
+  outline: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #0000003f;
+}
+.grid-input:focus {
+  box-shadow: 0 1px 2px 0;
+  outline-color: oklch(70.8% 0 0);
+  outline: 1px solid black;
+}
+
+.modal-footer {
+  margin-top: 15px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cancel-button {
+  padding: 8px 16px;
+  background-color: white;
+  font-family: "Inter", sans-serif;
+  color: #0a0a0a;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 10px;
+  border-color: #0000001f;
+}
+
+.cancel-button:hover {
+  background-color: #0000000e;
+}
+
+.save-button {
+  padding: 8px 16px;
+  background-color: black;
+  font-family: "Inter", sans-serif;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+.save-button:hover {
+  background-color: #000000c5;
+}
+
+.success-message {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  padding-right: 20px;
+}
+
+.success-message.fc-red {
+  color: rgba(255, 0, 0, 0.877);
+}
+
+.success-message.fc-blue {
+  color: rgb(58, 166, 255);
+}

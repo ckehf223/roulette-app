@@ -114,10 +114,10 @@ function RouletteBoard({ items }) {
         <div className='content-wrap'>
           <div className="board-area">
             <div className="d-flex justify-content-center align-items-center gap-2">
-              <span className="fs-5">옵션 개수</span>
+              <span className="fs-5">COUNT</span>
               <button id="minusBtn" onClick={onMinusClick}>-</button>
               <div>
-                <span className="fs-5 fw-bold">{count}</span><span className="fs-5">개</span>
+                <span className="fs-5 fw-bold">{count}</span><span className="fs-5"></span>
               </div>
               <button id="plusBtn" onClick={onPlusClick}>+</button>
             </div>
@@ -161,7 +161,7 @@ function RouletteBoard({ items }) {
                           <input
                             type='text'
                             className="style-pp"
-                            placeholder={`옵션 ${idx + 1}`}
+                            placeholder={`Option ${idx + 1}`}
                             value={options[idx]}
                             onChange={(e) => { setOptionValue(idx, e.target.value) }}
 
@@ -182,14 +182,14 @@ function RouletteBoard({ items }) {
 
             {isVisible &&
               <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
-                <button id="btnReset" onClick={() => { modifyOptions() }}>변경</button>
-                <button id="btnSpin" onClick={() => { spinRoulette() }}>돌리기</button>
+                <button id="btnReset" onClick={() => { modifyOptions() }}>Modify</button>
+                <button id="btnSpin" onClick={() => { spinRoulette() }}>Spin</button>
               </div>}
 
             {!isVisible &&
               <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
-                <button id="btnReset" onClick={() => { resetOptionValue() }}>초기화</button>
-                {isAllFilled && <button id="btnComplete" onClick={() => { setComplete() }}>설정완료</button>}
+                <button id="btnReset" onClick={() => { resetOptionValue() }}>Reset</button>
+                {isAllFilled && <button id="btnComplete" onClick={() => { setComplete() }}>Complete</button>}
               </div>}
 
           </div>

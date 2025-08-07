@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from 'react-modal';
 import instance from "/src/common/axios";
+import '/src/css/ResModal.css';
+
+Modal.setAppElement('#root'); // 필수 설정
 
 const ResModal = ({
   isOpen = false,
@@ -35,123 +37,124 @@ const ResModal = ({
       setRemark("");
       setStatus("C");
     }
+    setSuccessMsg("");
+    setIsSuccess(false);
   }, [selectedItem])
 
   const onChangeResName = (e) => {
+    changeValue();
     setResName(e.target.value);
   };
   const onChangeLinkUrl = (e) => {
+    changeValue();
     setLinkUrl(e.target.value);
   };
   const onChangeRemark = (e) => {
+    changeValue();
     setRemark(e.target.value);
   };
-  const handleCancelClick = () => {
-    setResName("");
-    setLinkUrl("");
-    setRemark("");
+
+  const changeValue = () => {
     setSuccessMsg('');
     setIsSuccess(false);
-    setIsUpdate(false);
+  }
+
+  const handleCancelClick = () => {
     toggle();
   };
 
   const handleSendClick = async () => {
+
     if (!resName) {
-      alert('음식점명은 필수값입니다.');
+      alert('storeName is required');
       return;
     }
 
+    const msgDom = document.getElementById('successMsg');
+    msgDom.className = "success-message";
     try {
-      await instance.post("/res",
-        {
-          id: id,
-          name: resName,
-          linkUrl: linkUrl,
-          remark: remark,
-          status: status
-        }
-      );
+      await instance.post("/res", {
+        id: id,
+        name: resName,
+        linkUrl: linkUrl,
+        remark: remark,
+        status: status
+      });
       setIsSuccess(true);
-      setSuccessMsg('등록완료');
-      setTimeout(() => { reload() }, 1000);
+      setSuccessMsg('Success');
+      msgDom.classList.add('fc-blue');
+      setTimeout(() => { reload(); toggle(); }, 1000);
     } catch (error) {
-      setSuccessMsg('등록실패');
+      setSuccessMsg('Fail');
+      msgDom.classList.add('fc-red');
       console.error("report Error " + error);
     }
   };
 
   return (
-    <Modal className="ReportModal" isOpen={isOpen} toggle={toggle} centered>
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <ModalHeader className="ReportModalHeader">
+    <>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={handleCancelClick}
+        className="modal-wrap"
+        overlayClassName="modalOverlay"
+      >
+        <div className="modal-header-wrap">
+          <div className="modal-header">
             <span>{title}</span>
             <button
-              className="ReportModalCloseButton"
+              className="modal-close-button"
               onClick={handleCancelClick}>
               X
             </button>
-          </ModalHeader>
-          <ModalBody className="ReportModalBody">
-            <div className="ReportModalTargetIdArea">
-            </div>
-            <div className="ReportModalContentArea">
-              <table className="modalTable">
-                <colgroup>
-                  <col style={{ width: '80px' }} />
-                  <col />
-                </colgroup>
-                <tbody>
-                  <tr>
-                    <th>음식점 명</th>
-                    <td>
-                      <input
-                        type="text"
-                        value={resName}
-                        onChange={(e) => { onChangeResName(e) }}
-                        placeholder="음식점 명 입력하세요"
-                        disabled={isSuccess || isUpdate}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>링크 주소</th>
-                    <td>
-                      <input
-                        type="text"
-                        value={linkUrl}
-                        onChange={(e) => { onChangeLinkUrl(e) }}
-                        placeholder="링크 주소 입력하세요"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>비고</th>
-                    <td>
-                      <input
-                        type="text"
-                        value={remark}
-                        onChange={(e) => { onChangeRemark(e) }}
-                        placeholder="비고 입력하세요"
-                      />
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-
-            </div>
-            <div className="ReportModalSendButtonArea">
-              <button className="ReportModalSendButton" onClick={() => { handleSendClick() }}>등록</button>
-            </div>
-            {isSuccess && <p className="ReportModalSuccessMessage">
-              {successMsg}
-            </p>}
-          </ModalBody>
+          </div>
         </div>
-      </div >
-    </Modal >
+
+        <div className="modal-body">
+          <div className="grid-box">
+            <label className="grid-title" for="storeName">storeName</label>
+            <input
+              type="text"
+              className="grid-input"
+              value={resName}
+              id="storeName"
+              onChange={onChangeResName}
+              disabled={isSuccess || isUpdate}
+            />
+          </div>
+          <div className="grid-box">
+            <label className="grid-title" for="link" >Link</label>
+            <input
+              type="text"
+              className="grid-input"
+              value={linkUrl}
+              id="link"
+              onChange={onChangeLinkUrl}
+            />
+          </div>
+          <div className="grid-box">
+            <label className="grid-title" for="remark">description</label>
+            <input
+              type="text"
+              className="grid-input"
+              value={remark}
+              id="remark"
+              onChange={onChangeRemark}
+            />
+          </div>
+
+        </div>
+        <div className="modal-footer">
+          <p id="successMsg" className="success-message">{successMsg}</p>
+          {!isSuccess &&
+            <div className="buttons">
+              <button className="cancel-button" onClick={handleCancelClick}>cancel</button>
+              <button className="save-button" onClick={handleSendClick}>save changes</button>
+            </div>}
+        </div>
+
+      </Modal>
+    </>
   );
 };
 

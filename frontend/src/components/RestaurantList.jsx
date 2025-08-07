@@ -40,8 +40,8 @@ const RestaurantList = ({ onSelect, onOpenLink }) => {
   return (
     <div id='aside-container'>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '7px', marginBottom: '5px', padding: '3px' }}>
-        <h3 className='h5 fw-bold m-0'>음식점 리스트</h3>
-        {isOpenBtn && <button className='is-secondary' onClick={() => { openResModal() }}>추가</button>}
+        <h3 className='h5 fw-bold m-0'>Store List</h3>
+        {isOpenBtn && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
       </div>
       <div className='card' style={{ width: '100%', height: '100%' }}>
         <ul className='menu-list'>
@@ -66,7 +66,7 @@ const RestaurantList = ({ onSelect, onOpenLink }) => {
       <ResModal
         isOpen={isModalOpen}
         toggle={openResModal}
-        title="음식점 등록"
+        title="Edit store"
         reload={getResList}
         selectedItem={selectedItem}
       ></ResModal>
