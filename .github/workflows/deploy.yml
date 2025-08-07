@@ -21,11 +21,14 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY  }}
           port: 22
           script: |
-            echo ">>> 기존 앱 삭제"
-            rm -rf ~/roulette-app
-
-            echo ">>> git clone"
-            git clone https://github.com/ckehf223/roulette-app.git
+            echo ">>> 소스 디렉토리 존재 여부 확인"
+            if [ -d "~/roulette-app/.git" ]; then
+              echo ">>> git pull"
+              cd ~/roulette-app && git pull
+            else
+              echo ">>> git clone"
+              git clone https://github.com/ckehf223/roulette-app.git
+            fi
 
             echo ">>> backend 디렉토리 이동"
             cd ~/roulette-app/backend
