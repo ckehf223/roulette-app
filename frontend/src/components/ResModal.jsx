@@ -8,12 +8,34 @@ const ResModal = ({
   toggle = () => { },
   title = "",
   reload = () => { },
+  selectedItem = {},
 }) => {
   const [resName, setResName] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [remark, setRemark] = useState("");
+  const [status, setStatus] = useState("C");
+  const [id, setId] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  useEffect(() => {
+    if (selectedItem && Object.keys(selectedItem).length > 0) {
+      setIsUpdate(true);
+      setId(selectedItem.id);
+      setResName(selectedItem.name || "");
+      setLinkUrl(selectedItem.linkUrl || "");
+      setRemark(selectedItem.remark || "");
+      setStatus("U");
+    } else {
+      setIsUpdate(false);
+      setId("");
+      setResName("");
+      setLinkUrl("");
+      setRemark("");
+      setStatus("C");
+    }
+  }, [selectedItem])
 
   const onChangeResName = (e) => {
     setResName(e.target.value);
@@ -30,6 +52,7 @@ const ResModal = ({
     setRemark("");
     setSuccessMsg('');
     setIsSuccess(false);
+    setIsUpdate(false);
     toggle();
   };
 
@@ -42,9 +65,11 @@ const ResModal = ({
     try {
       await instance.post("/res",
         {
+          id: id,
           name: resName,
           linkUrl: linkUrl,
-          remark: remark
+          remark: remark,
+          status: status
         }
       );
       setIsSuccess(true);
@@ -86,7 +111,7 @@ const ResModal = ({
                         value={resName}
                         onChange={(e) => { onChangeResName(e) }}
                         placeholder="음식점 명 입력하세요"
-                        readOnly={isSuccess}
+                        disabled={isSuccess || isUpdate}
                       />
                     </td>
                   </tr>
@@ -98,7 +123,6 @@ const ResModal = ({
                         value={linkUrl}
                         onChange={(e) => { onChangeLinkUrl(e) }}
                         placeholder="링크 주소 입력하세요"
-                        readOnly={isSuccess}
                       />
                     </td>
                   </tr>
@@ -110,7 +134,6 @@ const ResModal = ({
                         value={remark}
                         onChange={(e) => { onChangeRemark(e) }}
                         placeholder="비고 입력하세요"
-                        readOnly={isSuccess}
                       />
                     </td>
                   </tr>
@@ -119,15 +142,12 @@ const ResModal = ({
               </table>
 
             </div>
-            {!isSuccess ? (
-              <div className="ReportModalSendButtonArea">
-                <button className="ReportModalSendButton" onClick={() => { handleSendClick() }}>등록</button>
-              </div>
-            ) : (
-              <p className="ReportModalSuccessMessage">
-                {successMsg}
-              </p>
-            )}
+            <div className="ReportModalSendButtonArea">
+              <button className="ReportModalSendButton" onClick={() => { handleSendClick() }}>등록</button>
+            </div>
+            {isSuccess && <p className="ReportModalSuccessMessage">
+              {successMsg}
+            </p>}
           </ModalBody>
         </div>
       </div >

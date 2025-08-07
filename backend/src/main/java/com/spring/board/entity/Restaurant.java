@@ -22,4 +22,7 @@ public class Restaurant {
 
     @Column(name = "REMARK")
     private String remark;
+
+    @Transient
+    private String status;
 }

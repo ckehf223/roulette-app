@@ -15,7 +15,16 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
 
     public Restaurant save(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
+        Restaurant res = null;
+        switch(restaurant.getStatus()){
+            case "C":
+            case "U":
+                res = restaurantRepository.save(restaurant);
+                break;
+            case "D":
+                break;
+        }
+        return res;
     }
 
     public List<Restaurant> findAll() {

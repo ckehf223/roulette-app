@@ -126,7 +126,7 @@ function RouletteBoard({ items }) {
                 margin: '0 auto',
                 position: 'relative'
               }}>
-                <div id="choice"></div>
+                <div className="selector"></div>
                 <div id="boardDiv"
                   style={{
                     transform: `rotate(${rotation}deg)`,
