@@ -23,6 +23,8 @@ public class RestaurantService {
                 break;
             case "D":
                 break;
+            default:
+                break;
         }
         return res;
     }
