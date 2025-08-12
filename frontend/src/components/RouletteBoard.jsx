@@ -4,6 +4,7 @@ import '/src/css/RouletteBoard.css';
 import positions from "/src/common/position";
 
 const MAX_COUNT = 12;
+const POINTER_DEG = 270;
 
 function RouletteBoard({ items }) {
   const [count, setCount] = useState(2);
@@ -12,6 +13,9 @@ function RouletteBoard({ items }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAllFilled, setIsAllFilled] = useState(false);
   const [isMotion, setIsMotion] = useState(true);
+  const [pendingWinner, setPendingWinner] = useState(null);
+  const [winnerShift, setWinnerShift] = useState(0);
+  const [isSpinning, setIsSpinning] = useState(false);
 
   const canvasRef = useRef(null);
   const CSS_SIZE = 420;
@@ -56,6 +60,7 @@ function RouletteBoard({ items }) {
 
     const center = size / 2;
     const radius = center - 8;
+    const textRadius = radius - 30;
     const angleStep = (2 * Math.PI) / count;
 
     ctx.clearRect(0, 0, size, size);
@@ -82,7 +87,7 @@ function RouletteBoard({ items }) {
         ctx.font = "bold 16px system-ui, -apple-system, Arial";
         ctx.fillStyle = "#222";
         const maxWidth = radius - 16;
-        ctx.fillText(ellipsize(ctx, label, maxWidth), radius - 10, 0);
+        ctx.fillText(ellipsize(ctx, label, maxWidth), textRadius, 0);
         ctx.restore();
       }
     }
@@ -145,21 +150,6 @@ function RouletteBoard({ items }) {
     setTimeout(() => { setIsMotion(true); }, 300);
   };
 
-  const setComplete = () => {
-    setIsVisible(true);
-  };
-
-  const spinRoulette = () => {
-    let randomSection = Math.floor(Math.random() * (360 - 100) + 100);
-    console.log(randomSection);
-    const degreesPerSection = randomSection / count;
-    const selectedIndex = Math.floor(Math.random() * count);
-    const rotationCount = Math.floor(Math.random() * (20 - 5) + 5);
-    const targetRotation = 360 * rotationCount + (360 - selectedIndex * degreesPerSection);
-    const newRotation = rotation + targetRotation;
-    setRotation(newRotation);
-  };
-
   const addOptionValue = (value) => {
     if (isAllFilled) return;
     setOptions(prev => {
@@ -182,6 +172,67 @@ function RouletteBoard({ items }) {
 
   const hasPositions = !!positions[count];
 
+  const spinRoulette = () => {
+    if (isSpinning) return;
+    const degPer = 360 / count;
+    const selectedIndex = Math.floor(Math.random() * count);
+    setPendingWinner(selectedIndex);
+
+    const centerAngle = POINTER_DEG - (selectedIndex + 0.5) * degPer;
+
+    const safety = Math.min(10, degPer / 4);
+    const maxJitter = Math.max(0, degPer / 2 - safety);
+    const jitter = (Math.random() * 2 - 1) * maxJitter;
+    const turns = Math.floor(Math.random() * 15) + 5;
+
+    setIsSpinning(true);
+    setRotation(turns * 360 + centerAngle + jitter);
+  };
+
+  const normalizeDeg = (deg) => ((deg % 360) + 360) % 360;
+
+  const indexFromRotationRaw = (rotationDeg, count) => {
+    const degPer = 360 / count;
+    const current = normalizeDeg(rotationDeg);
+    const underPointer = normalizeDeg(POINTER_DEG - current);
+    const EPS = 1e-4;
+    return Math.floor((underPointer + EPS) / degPer) % count;
+  };
+
+  const handleSpinEnd = async () => {
+    const raw = indexFromRotationRaw(rotation, count);
+    if (pendingWinner !== null) {
+      const shift = (pendingWinner - raw + count) % count;
+      setWinnerShift(shift);
+    }
+    const finalIndex = (raw + winnerShift) % count;
+
+    // await saveHistory(finalIndex);
+
+    setIsMotion(false);
+    setRotation(normalizeDeg(rotation));
+    setTimeout(() => { setIsMotion(true); }, 10);
+    setIsSpinning(false);
+  };
+
+  const saveHistory = async (index) => {
+    try {
+      const response = await instance.post("/result/his", {
+        result: options[index],
+        reqDate: new Date().toDateString(),
+        userId: 'admin',
+      });
+      console.log(response);
+      if (response.status === 200 && response.data > 0) {
+
+      }
+    } catch (error) {
+      console.error("룰렛 기록 저장중 에러 발생" + error);
+    }
+  }
+
+
+
   return (
     <>
       <div className="content-container">
@@ -202,6 +253,7 @@ function RouletteBoard({ items }) {
 
                 <div
                   id="boardDiv"
+                  onTransitionEnd={handleSpinEnd}
                   style={{
                     transform: `rotate(${rotation}deg)`,
                     transition: isMotion ? 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)' : 'none',
@@ -211,7 +263,6 @@ function RouletteBoard({ items }) {
                     height: CSS_SIZE,
                   }}
                 >
-                  {/* ✅ 이미지 대신 캔버스 */}
                   <canvas
                     ref={canvasRef}
                     style={{
@@ -221,7 +272,6 @@ function RouletteBoard({ items }) {
                     }}
                   />
 
-                  {/* 입력 단계: positions 있으면 기존처럼 오버레이, 없으면 폼 그리드 */}
                   {!isVisible && hasPositions && (
                     <ul style={{ zIndex: 2 }}>
                       {positions[count].map((pos, idx) => (
@@ -247,7 +297,6 @@ function RouletteBoard({ items }) {
               </div>
             </div>
 
-            {/* positions 없을 때 입력 폼(그리드) 대체 */}
             {!isVisible && !hasPositions && (
               <div className="d-flex justify-content-center mt-3">
                 <div style={{
@@ -280,7 +329,7 @@ function RouletteBoard({ items }) {
             {!isVisible && (
               <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
                 <button id="btnReset" onClick={resetOptionValue}>Reset</button>
-                {isAllFilled && <button id="btnComplete" onClick={setComplete}>Complete</button>}
+                {isAllFilled && <button id="btnComplete" onClick={() => { setIsVisible(true); }}>Complete</button>}
               </div>
             )}
           </div>
