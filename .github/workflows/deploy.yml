@@ -26,7 +26,7 @@ jobs:
 
       - name: Copy JAR to EC2
         run: |
-          scp -o StrictHostKeyChecking=no backend/build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar ec2-user@${{ secrets.EC2_HOST }}:/opt/ustra-roulette-app/
+          scp -o StrictHostKeyChecking=no backend/build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/roulette-app.jar
 
       - name: Restart app via systemctl
         run: |
