@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import instance from '/src/common/axios';
 import useModal from '/src/common/useModal';
 import ResModal from '/src/components/ResModal';
 import foodList from '/src/common/foodList';
 import '/src/css/RestaurantList.css';
 
-const RestaurantList = ({ onSelect, onOpenLink }) => {
+const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
   const [resList, setResList] = useState([]);
   const [isOpenBtn, setIsOpenBtn] = useState(false);
   const { isModalOpen, toggleModal } = useModal();
   const [selectedItem, setSelectedItem] = useState({});
 
+  const countRef = useRef(count);
+  useEffect(() => {
+    countRef.current = count;
+  }, [count]);
 
   const getResList = async () => {
     try {
@@ -37,13 +41,42 @@ const RestaurantList = ({ onSelect, onOpenLink }) => {
     toggleModal();
   };
 
+
+  const randomShuffle = async () => {
+    if (!resList?.length) return;
+
+    const pool = [...resList];
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+
+    const picked = new Set();
+    const pickedList = [];
+    let idx = 0;
+
+    while (true) {
+      if (countRef.current === picked.size) break;
+      const item = pool[idx++];
+      if (picked.has(item.id)) continue;
+      picked.add(item.id);
+      pickedList.push(item.name);
+    }
+
+    onRandomSet(pickedList);
+
+  };
+
   return (
     <div id='aside-container'>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '7px', marginBottom: '5px', padding: '3px' }}>
         <h3 className='h5 fw-bold m-0'>Store List</h3>
-        {isOpenBtn && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
+        <div className='buttons'>
+          <div className='is-random' onClick={() => { randomShuffle() }}></div>
+          {isOpenBtn && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
+        </div>
       </div>
-      <div className='card' style={{ width: '100%', height: '100%' }}>
+      <div className='card' style={{ width: '100%' }}>
         <ul className='menu-list'>
           {resList.map((obj, idx) => (
             <li key={obj.name} className="menu-card">

@@ -117,3 +117,22 @@
   background-color: white;
   border-radius: 5px;
 }
+
+.is-random{
+  width: 40px;
+  height: 36px;
+  background-image: url('/images/random-icon.png');
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: 7px 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.buttons{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
