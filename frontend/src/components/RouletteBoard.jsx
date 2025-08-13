@@ -6,6 +6,7 @@ import instance from '/src/auth/axios.js';
 
 const MAX_COUNT = 12;
 const POINTER_DEG = 270;
+const COLOR = ["#d5ffb0ff", "#ffec5fff", "#ff7171ff"];
 
 function RouletteBoard({ items }) {
   const [count, setCount] = useState(2);
@@ -71,7 +72,7 @@ function RouletteBoard({ items }) {
       ctx.moveTo(center, center);
       ctx.arc(center, center, radius, i * angleStep, (i + 1) * angleStep);
       ctx.closePath();
-      ctx.fillStyle = i % 2 === 0 ? "#b0ffb0ff" : "#ff7171ff";
+      ctx.fillStyle = COLOR[(i % 3)];
       ctx.fill();
 
       ctx.strokeStyle = "#ffffff";
