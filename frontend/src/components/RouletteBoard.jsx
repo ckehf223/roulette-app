@@ -208,7 +208,7 @@ function RouletteBoard({ items }) {
     }
     const finalIndex = (raw + winnerShift) % count;
 
-    // await saveHistory(finalIndex);
+    await saveHistory(finalIndex);
 
     setIsMotion(false);
     setRotation(normalizeDeg(rotation));

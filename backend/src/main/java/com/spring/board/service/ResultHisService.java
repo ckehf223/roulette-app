@@ -1,0 +1,23 @@
+package com.spring.board.service;
+
+import com.spring.board.mapper.ResultHisMapper;
+import com.spring.board.dto.ResultHisDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ResultHisService {
+
+    private final ResultHisMapper resultHisMapper;
+
+    public List<ResultHisDto> findResultHisList(ResultHisDto resultHisDto) {
+        return resultHisMapper.findResultHisList(resultHisDto);
+    }
+
+    public Integer insertResultHis(ResultHisDto resultHisDto) {
+        return resultHisMapper.insertResultHis(resultHisDto);
+    }
+}
