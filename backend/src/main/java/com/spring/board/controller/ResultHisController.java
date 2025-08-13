@@ -19,12 +19,12 @@ public class ResultHisController {
 
     private final ResultHisService resultService;
 
-    @GetMapping
+    @GetMapping("/find")
     public ResponseEntity<List<ResultHisDto>> findResultHisList(ResultHisDto resultHisDto){
         return ResponseEntity.ok(resultService.findResultHisList(resultHisDto));
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Integer> insertResultHis(ResultHisDto resultHisDto){
         return ResponseEntity.ok(resultService.insertResultHis(resultHisDto));
     }
