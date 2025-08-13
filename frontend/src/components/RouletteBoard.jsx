@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import RestaurantList from "./RestaurantList";
 import '/src/css/RouletteBoard.css';
 import positions from "/src/common/position";
+import instance from '/src/auth/axios.js';
 
 const MAX_COUNT = 12;
 const POINTER_DEG = 270;
@@ -211,7 +212,7 @@ function RouletteBoard({ items }) {
 
     setIsMotion(false);
     setRotation(normalizeDeg(rotation));
-    setTimeout(() => { setIsMotion(true); }, 10);
+    setTimeout(() => { setIsMotion(true); }, 30);
     setIsSpinning(false);
   };
 
@@ -224,7 +225,7 @@ function RouletteBoard({ items }) {
       });
       console.log(response);
       if (response.status === 200 && response.data > 0) {
-
+        "test"
       }
     } catch (error) {
       console.error("룰렛 기록 저장중 에러 발생" + error);

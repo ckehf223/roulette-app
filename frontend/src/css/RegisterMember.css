@@ -1,0 +1,152 @@
+.RegisterMemberWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.RegisterMemberLogoArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.RegisterMemberLogoArea img {
+  width: 250px;
+  height: 50px;
+  cursor: pointer;
+}
+.RegisterMember {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 700px;
+}
+
+.RegisterMember h2 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.register-form {
+  width: 90%;
+}
+.RegisterMemberInputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+.RegisterMemberInputArea {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  box-sizing: border-box;
+  border: 1px dotted lightblue;
+  border-radius: 5px;
+  padding: 5px;
+  position: relative;
+}
+.RegisterMemberInputArea label {
+  display: block;
+  font-size: 15px;
+  width: 130px;
+  margin-left: 10px;
+}
+.InputStarSpan {
+  color: red;
+  vertical-align: middle;
+}
+.RegisterMemberInputArea input {
+  position: relative;
+  height: 40px;
+  width: 430px;
+  border: none;
+  outline: none;
+  padding-right: 40px;
+  border-bottom: 2px solid rgba(208, 208, 208, 0.5);
+}
+.RegisterMemberInputArea input:focus {
+  border-bottom: 2px solid rgb(84, 83, 83);
+}
+.RegisterMemberInputArea select {
+  width: 430px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  /* border-bottom: 2px solid rgba(208, 208, 208, 0.5); */
+  height: 40px;
+}
+.EyeSlashIcon {
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 25px;
+  top: 18px;
+}
+.RegisterMemberErrorArea {
+  margin-left: 150px;
+}
+.error {
+  color: red;
+  font-size: 15px;
+  margin-top: 5px;
+}
+#userbirthInput {
+  height: 40px;
+  width: 430px;
+  border: none;
+  outline: none;
+  /* border-bottom: 2px solid rgba(208, 208, 208, 0.5); */
+  padding-right: 310px;
+}
+#userphoneInput {
+  width: 300px;
+  padding: 0;
+  margin-right: 15px;
+}
+.RegisterMemberPhoneCheckButton {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0078d7;
+  color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+#phoneCheck {
+  width: 250px;
+  padding: 0;
+  margin-right: 12px;
+}
+.register-button {
+  width: 100%;
+  padding: 5px;
+  background-color: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  height: 50px;
+  margin: 10px 0;
+}
+.phoneCheckTimer {
+  color: gray;
+  font-size: 22px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+#phoneCheckMessage {
+  color: rgb(0, 195, 0);
+}
+.success {
+  color: rgb(0, 195, 0);
+}
