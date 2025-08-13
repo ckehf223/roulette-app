@@ -5,10 +5,7 @@ import com.spring.board.dto.ResultHisDto;
 import com.spring.board.service.ResultHisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,12 +17,12 @@ public class ResultHisController {
     private final ResultHisService resultService;
 
     @GetMapping("/find")
-    public ResponseEntity<List<ResultHisDto>> findResultHisList(ResultHisDto resultHisDto){
+    public ResponseEntity<List<ResultHisDto>> findResultHisList(@RequestBody ResultHisDto resultHisDto){
         return ResponseEntity.ok(resultService.findResultHisList(resultHisDto));
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Integer> insertResultHis(ResultHisDto resultHisDto){
+    public ResponseEntity<Integer> insertResultHis(@RequestBody ResultHisDto resultHisDto){
         return ResponseEntity.ok(resultService.insertResultHis(resultHisDto));
     }
 

@@ -220,7 +220,7 @@ function RouletteBoard({ items }) {
     try {
       const response = await instance.post("/result/his/save", {
         result: options[index],
-        reqDate: new Date().toDateString(),
+        reqDate: new Date().toISOString(),
         userId: 'admin',
       });
       console.log(response);

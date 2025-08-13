@@ -6,7 +6,7 @@
         SELECT id
              , user_id
              , result
-             , DATE_FORMAT(req_date, '%Y.%m.%d %H:%i')
+             , DATE_FORMAT(req_date, '%Y.%m.%d %H:%i') AS req_date
         FROM resulthis
     </select>
 
