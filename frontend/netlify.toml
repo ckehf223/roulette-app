@@ -3,3 +3,9 @@
   to = "http://13.209.15.193:8080/api/:splat"
   status = 200
   force = true
+
+# React SPA 라우팅
+[[redirects]]
+  from = "/:path"
+  to = "/index.html"
+  status = 200
