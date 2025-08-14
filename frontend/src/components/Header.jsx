@@ -1,9 +1,30 @@
 import { useEffect, useState } from "react";
 import "/src/css/Header.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
+  const location = useLocation();
+
+  const getIndexFromPath = (path) => {
+    switch (path) {
+      case "/":
+        return 0;
+      case "/his":
+        return 1;
+      default:
+        return 0;
+    }
+  };
+
+
   const [today, setToday] = useState(null);
   const [day, setDay] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(getIndexFromPath(location.pathname));
+  const nav = useNavigate();
+
+  useEffect(() => {
+    setActiveIndex(getIndexFromPath(location.pathname));
+  }, [location.pathname]);
 
   useEffect(() => {
     const today = new Date();
@@ -16,6 +37,11 @@ function Header() {
     setDay(day);
     setToday(`${year}.${month}.${date} `);
   }, []);
+
+  const handleClick = (index, path) => {
+    setActiveIndex(index);
+    nav(path);
+  };
 
   return (
     <>
@@ -34,8 +60,8 @@ function Header() {
         <div className="nav-container">
           <div className="nav-wrap">
             <div className="nav-itemBox">
-              <div className="nav-item active">Roulette</div>
-              <div className="nav-item">Record</div>
+              <div className={`nav-item ${activeIndex === 0 ? 'active' : ''}`} onClick={() => handleClick(0, '/')}>Roulette</div>
+              <div className={`nav-item ${activeIndex === 1 ? 'active' : ''}`} onClick={() => handleClick(1, '/his')}>Record</div>
             </div>
             {/* <div className="nav-itemBox">
               <div className="nav-item">Login</div>

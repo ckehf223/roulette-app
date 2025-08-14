@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from 'react-modal';
-import instance from "/src/common/axios";
+import instance from "/src/auth/axios";
 import '/src/css/ResModal.css';
 
 Modal.setAppElement('#root'); // 필수 설정

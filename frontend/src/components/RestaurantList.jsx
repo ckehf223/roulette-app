@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import instance from '/src/common/axios';
+import instance from '/src/auth/axios';
 import useModal from '/src/common/useModal';
 import ResModal from '/src/components/ResModal';
 import foodList from '/src/common/foodList';

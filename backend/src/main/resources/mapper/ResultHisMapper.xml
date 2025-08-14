@@ -8,6 +8,7 @@
              , result
              , DATE_FORMAT(req_date, '%Y.%m.%d %H:%i') AS req_date
         FROM resulthis
+        WHERE #{baseDate} = DATE_FORMAT(req_date,'%Y%m')
     </select>
 
     <insert id="insertResultHis">

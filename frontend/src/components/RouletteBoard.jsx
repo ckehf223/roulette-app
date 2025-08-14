@@ -3,6 +3,7 @@ import RestaurantList from "./RestaurantList";
 import '/src/css/RouletteBoard.css';
 import positions from "/src/common/position";
 import instance from '/src/auth/axios.js';
+import { getKrDate } from "/src/utils/dateUtils";
 
 const MAX_COUNT = 12;
 const POINTER_DEG = 270;
@@ -221,8 +222,8 @@ function RouletteBoard({ items }) {
     try {
       const response = await instance.post("/result/his/save", {
         result: options[index],
-        reqDate: new Date().toISOString(),
-        userId: 'admin',
+        reqDate: getKrDate('yyyyMMddHHmmss'),
+        userId: 1,
       });
       console.log(response);
       if (response.status === 200 && response.data > 0) {
@@ -237,113 +238,109 @@ function RouletteBoard({ items }) {
 
   return (
     <>
-      <div className="content-container">
-        <div className='content-wrap'>
-          <div className="board-area">
-            <div className="d-flex justify-content-center align-items-center gap-2">
-              <span className="fs-5">COUNT</span>
-              <button id="minusBtn" onClick={onMinusClick}>-</button>
-              <div>
-                <span className="fs-5 fw-bold">{count}</span>
-              </div>
-              <button id="plusBtn" onClick={onPlusClick}>+</button>
-            </div>
-
-            <div id="board-container" className="d-flex justify-content-center align-items-center mt-4">
-              <div style={{ margin: '0 auto', position: 'relative' }}>
-                <div className="selector" style={{ zIndex: 3 }}></div>
-
-                <div
-                  id="boardDiv"
-                  onTransitionEnd={handleSpinEnd}
-                  style={{
-                    transform: `rotate(${rotation}deg)`,
-                    transition: isMotion ? 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)' : 'none',
-                    transformOrigin: 'center center',
-                    position: 'relative',
-                    width: CSS_SIZE,
-                    height: CSS_SIZE,
-                  }}
-                >
-                  <canvas
-                    ref={canvasRef}
-                    style={{
-                      borderRadius: '50%',
-                      display: 'block',
-                      zIndex: 1,
-                    }}
-                  />
-
-                  {!isVisible && hasPositions && (
-                    <ul style={{ zIndex: 2 }}>
-                      {positions[count].map((pos, idx) => (
-                        <li key={idx}>
-                          <input
-                            type='text'
-                            className="style-pp"
-                            placeholder={`Option ${idx + 1}`}
-                            value={options[idx]}
-                            onChange={(e) => { setOptionValue(idx, e.target.value); }}
-                            style={{
-                              position: 'absolute',
-                              left: pos.left,
-                              top: pos.top,
-                              transform: 'translate(-50%, -50%)',
-                            }}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {!isVisible && !hasPositions && (
-              <div className="d-flex justify-content-center mt-3">
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-                  gap: '8px',
-                  width: 'min(640px, 90vw)'
-                }}>
-                  {Array.from({ length: count }).map((_, idx) => (
-                    <input
-                      key={idx}
-                      type="text"
-                      className="style-pp"
-                      placeholder={`Option ${idx + 1}`}
-                      value={options[idx]}
-                      onChange={(e) => setOptionValue(idx, e.target.value)}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {isVisible && (
-              <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
-                <button id="btnReset" onClick={modifyOptions}>Modify</button>
-                <button id="btnSpin" onClick={spinRoulette}>Spin</button>
-              </div>
-            )}
-
-            {!isVisible && (
-              <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
-                <button id="btnReset" onClick={resetOptionValue}>Reset</button>
-                {isAllFilled && <button id="btnComplete" onClick={() => { setIsVisible(true); }}>Complete</button>}
-              </div>
-            )}
+      <div className="board-area">
+        <div className="d-flex justify-content-center align-items-center gap-2">
+          <span className="fs-5">COUNT</span>
+          <button id="minusBtn" onClick={onMinusClick}>-</button>
+          <div>
+            <span className="fs-5 fw-bold">{count}</span>
           </div>
-
-          <RestaurantList
-            onSelect={addOptionValue}
-            onOpenLink={openLinkPopup}
-            count={count}
-            onRandomSet={randomShuffle}
-          />
+          <button id="plusBtn" onClick={onPlusClick}>+</button>
         </div>
+
+        <div id="board-container" className="d-flex justify-content-center align-items-center mt-4">
+          <div style={{ margin: '0 auto', position: 'relative' }}>
+            <div className="selector" style={{ zIndex: 3 }}></div>
+
+            <div
+              id="boardDiv"
+              onTransitionEnd={handleSpinEnd}
+              style={{
+                transform: `rotate(${rotation}deg)`,
+                transition: isMotion ? 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)' : 'none',
+                transformOrigin: 'center center',
+                position: 'relative',
+                width: CSS_SIZE,
+                height: CSS_SIZE,
+              }}
+            >
+              <canvas
+                ref={canvasRef}
+                style={{
+                  borderRadius: '50%',
+                  display: 'block',
+                  zIndex: 1,
+                }}
+              />
+
+              {!isVisible && hasPositions && (
+                <ul style={{ zIndex: 2 }}>
+                  {positions[count].map((pos, idx) => (
+                    <li key={idx}>
+                      <input
+                        type='text'
+                        className="style-pp"
+                        placeholder={`Option ${idx + 1}`}
+                        value={options[idx]}
+                        onChange={(e) => { setOptionValue(idx, e.target.value); }}
+                        style={{
+                          position: 'absolute',
+                          left: pos.left,
+                          top: pos.top,
+                          transform: 'translate(-50%, -50%)',
+                        }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {!isVisible && !hasPositions && (
+          <div className="d-flex justify-content-center mt-3">
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+              gap: '8px',
+              width: 'min(640px, 90vw)'
+            }}>
+              {Array.from({ length: count }).map((_, idx) => (
+                <input
+                  key={idx}
+                  type="text"
+                  className="style-pp"
+                  placeholder={`Option ${idx + 1}`}
+                  value={options[idx]}
+                  onChange={(e) => setOptionValue(idx, e.target.value)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {isVisible && (
+          <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
+            <button id="btnReset" onClick={modifyOptions}>Modify</button>
+            <button id="btnSpin" onClick={spinRoulette}>Spin</button>
+          </div>
+        )}
+
+        {!isVisible && (
+          <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
+            <button id="btnReset" onClick={resetOptionValue}>Reset</button>
+            {isAllFilled && <button id="btnComplete" onClick={() => { setIsVisible(true); }}>Complete</button>}
+          </div>
+        )}
       </div>
+
+      <RestaurantList
+        onSelect={addOptionValue}
+        onOpenLink={openLinkPopup}
+        count={count}
+        onRandomSet={randomShuffle}
+      />
     </>
   );
 }

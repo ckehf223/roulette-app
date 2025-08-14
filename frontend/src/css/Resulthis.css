@@ -1,0 +1,40 @@
+.resultArea{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.result-grid-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 한 행에 3개 */
+  gap: 16px; /* 카드 간 간격 */
+  
+}
+
+.result-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.result-title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.result-date{
+  font-size: 13px;
+  color: #9e9e9e;
+}
+
+.result-wirter{
+  font-size: 16px;
+  
+}

@@ -11,4 +11,6 @@ public class ResultHisDto {
     private Long userId;
     private String result;
     private String reqDate;
+
+    private String baseDate;
 }
