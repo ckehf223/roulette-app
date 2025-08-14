@@ -17,7 +17,7 @@ public class ResultHisController {
     private final ResultHisService resultService;
 
     @GetMapping("/find")
-    public ResponseEntity<List<ResultHisDto>> findResultHisList(@RequestBody ResultHisDto resultHisDto){
+    public ResponseEntity<List<ResultHisDto>> findResultHisList(ResultHisDto resultHisDto){
         return ResponseEntity.ok(resultService.findResultHisList(resultHisDto));
     }
 
