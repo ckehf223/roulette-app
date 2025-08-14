@@ -12,10 +12,9 @@ function Resulthis() {
   }, []);
 
   const getHistoryList = async () => {
+    let baseDate = getKrDate('yyyyMM');
     try {
-      const response = await instance.get("/result/his/find",
-        { baseDate: getKrDate('yyyyMM') }
-      );
+      const response = await instance.get(`/result/his/find?baseDate=${baseDate}`);
       setHisList(response.data);
     } catch (error) {
       setHisList([]);

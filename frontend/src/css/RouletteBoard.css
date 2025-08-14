@@ -24,6 +24,22 @@
   flex-direction: column;
   align-items: center;
   margin-left: 100px;
+  gap: 15px;
+}
+
+.board-inner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.fs-5{
+  font-size: 20px;
+}
+
+.fw-bold{
+  font-weight: bold;
 }
 
 #boardDiv {
@@ -135,7 +151,11 @@
   filter: drop-shadow(0 1px 0 rgba(0,0,0,.25));
 }
 
-#board-container {
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
   position: relative;
 }
 
@@ -145,4 +165,13 @@
   border: 1px solid rgb(0, 0, 0, 0.5);
   padding: 5px;
   width: 90px;
+  height: 25px;
+}
+
+.board-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  gap: 8px;
 }

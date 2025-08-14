@@ -239,7 +239,7 @@ function RouletteBoard({ items }) {
   return (
     <>
       <div className="board-area">
-        <div className="d-flex justify-content-center align-items-center gap-2">
+        <div className="board-inner">
           <span className="fs-5">COUNT</span>
           <button id="minusBtn" onClick={onMinusClick}>-</button>
           <div>
@@ -248,9 +248,9 @@ function RouletteBoard({ items }) {
           <button id="plusBtn" onClick={onPlusClick}>+</button>
         </div>
 
-        <div id="board-container" className="d-flex justify-content-center align-items-center mt-4">
+        <div className="board-container" >
           <div style={{ margin: '0 auto', position: 'relative' }}>
-            <div className="selector" style={{ zIndex: 3 }}></div>
+            <div className="selector"></div>
 
             <div
               id="boardDiv"
@@ -299,7 +299,7 @@ function RouletteBoard({ items }) {
         </div>
 
         {!isVisible && !hasPositions && (
-          <div className="d-flex justify-content-center mt-3">
+          <div>
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
@@ -321,14 +321,14 @@ function RouletteBoard({ items }) {
         )}
 
         {isVisible && (
-          <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
+          <div className="board-buttons">
             <button id="btnReset" onClick={modifyOptions}>Modify</button>
             <button id="btnSpin" onClick={spinRoulette}>Spin</button>
           </div>
         )}
 
         {!isVisible && (
-          <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
+          <div className="board-buttons">
             <button id="btnReset" onClick={resetOptionValue}>Reset</button>
             {isAllFilled && <button id="btnComplete" onClick={() => { setIsVisible(true); }}>Complete</button>}
           </div>
