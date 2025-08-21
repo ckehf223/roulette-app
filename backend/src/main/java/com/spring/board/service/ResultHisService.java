@@ -1,5 +1,6 @@
 package com.spring.board.service;
 
+import com.spring.board.core.CamelCaseMap;
 import com.spring.board.mapper.ResultHisMapper;
 import com.spring.board.dto.ResultHisDto;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ public class ResultHisService {
 
     private final ResultHisMapper resultHisMapper;
 
-    public List<ResultHisDto> findResultHisList(ResultHisDto resultHisDto) {
+    public List<CamelCaseMap> findResultHisList(ResultHisDto resultHisDto) {
         return resultHisMapper.findResultHisList(resultHisDto);
     }
 

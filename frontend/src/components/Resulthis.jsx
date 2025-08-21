@@ -28,9 +28,9 @@ function Resulthis() {
         <div className='result-grid-box'>
           {hisList.map((o, idx) => (
             <div key={idx} className='result-grid'>
-              <p className='result-title'>{o.result}</p>
+              <p className='result-title'>{o.resultName}</p>
               <p className='result-date'>{o.reqDate}</p>
-              <p className='result-wirter'>사용자: {o.userId}</p>
+              <p className='result-wirter'>사용자: {o.userName}</p>
             </div>
           ))}
         </div>

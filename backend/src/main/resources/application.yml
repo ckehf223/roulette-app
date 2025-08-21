@@ -1,13 +1,13 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/roulette?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    username: root
-    password: song1074
+    url: jdbc:mariadb://roulette-app-database-1.cd0y24wkquzb.ap-northeast-2.rds.amazonaws.com:3306/roulette?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: admin
+    password: song1074++
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true

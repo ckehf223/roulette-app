@@ -1,5 +1,13 @@
+.menu-card-title{
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  margin-right: 3px;
+}
+
+
 .menu-card-buttons {
   display: flex;
+  align-items: center;
   margin: 12px 16px;
   gap: 5px;
 }

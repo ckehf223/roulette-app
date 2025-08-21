@@ -1,6 +1,7 @@
 package com.spring.board.controller;
 
-import com.spring.board.entity.Restaurant;
+import com.spring.board.core.CamelCaseMap;
+import com.spring.board.dto.RestaurantDto;
 import com.spring.board.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +16,26 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @PostMapping
-    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
-        Restaurant saved = restaurantService.save(restaurant);
-        return ResponseEntity.ok(saved);
+    @GetMapping("/find")
+    public ResponseEntity<List<CamelCaseMap>>  findRestaurantList() {
+        return ResponseEntity.ok(restaurantService.findRestaurantList());
     }
 
-    @GetMapping("/find")
-    public ResponseEntity<List<Restaurant>>  list() {
-        return ResponseEntity.ok(restaurantService.findAll());
+    @PostMapping
+    public ResponseEntity<Integer> create(@RequestBody RestaurantDto restaurantDto) {
+        return ResponseEntity.ok(restaurantService.save(restaurantDto));
     }
+
+//    @PostMapping
+//    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
+//        Restaurant saved = restaurantService.save(restaurant);
+//        return ResponseEntity.ok(saved);
+//    }
+//
+//    @GetMapping("/find")
+//    public ResponseEntity<List<Restaurant>>  list() {
+//        return ResponseEntity.ok(restaurantService.findAll());
+//    }
+
+
 }

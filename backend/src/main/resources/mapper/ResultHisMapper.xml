@@ -2,28 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.board.mapper.ResultHisMapper">
 
-    <select id="findResultHisList" resultType="com.spring.board.dto.ResultHisDto">
-        SELECT id
-             , user_id
-             , result
-             , DATE_FORMAT(req_date, '%Y.%m.%d %H:%i') AS req_date
-        FROM resulthis
-        WHERE #{baseDate} = DATE_FORMAT(req_date,'%Y%m')
+    <select id="findResultHisList" resultType="CamelCaseMap">
+        SELECT A.ID
+             , B.USERNAME AS USER_NAME
+             , A.RESULT_NAME
+             , DATE_FORMAT(A.REQ_DATE, '%Y.%m.%d %H:%i') AS REQ_DATE
+        FROM RESULTHIS A
+                 LEFT OUTER JOIN TB_USER B
+                                 ON A.USER_ID = B.ID
+        WHERE #{baseDate} = DATE_FORMAT(A.REQ_DATE,'%Y%m')
     </select>
 
     <insert id="insertResultHis">
-        INSERT INTO resulthis
+        INSERT INTO RESULTHIS
         (
-            user_id
-          , result
-          , req_date
+          user_id
+        , res_id
+        , result_name
+        , req_date
         )
-        VALUES
-        (
-           #{userId}
-         , #{result}
-         , #{reqDate}
-        )
+        SELECT A.USER_ID
+             , A.RES_ID
+             , A.RESULT_NAME
+             , A.REQ_DATE
+        FROM (
+                 #{userId} AS USER_ID
+               , #{resultName} AS RESULT_NAME
+               , #{reqDate} AS REQ_DATE
+               , (SELECT id FROM RESTAURANT WHERE name = #{resultName} LIMIT 1) AS RES_ID
+              )
     </insert>
 
 </mapper>

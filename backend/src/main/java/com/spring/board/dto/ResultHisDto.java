@@ -9,7 +9,8 @@ public class ResultHisDto {
 
     private Long id;
     private Long userId;
-    private String result;
+    private Long resId;
+    private String resultName;
     private String reqDate;
 
     private String baseDate;

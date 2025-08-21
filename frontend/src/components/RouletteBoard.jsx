@@ -221,7 +221,7 @@ function RouletteBoard({ items }) {
   const saveHistory = async (index) => {
     try {
       const response = await instance.post("/result/his/save", {
-        result: options[index],
+        resultName: options[index],
         reqDate: getKrDate('yyyyMMddHHmmss'),
         userId: 1,
       });

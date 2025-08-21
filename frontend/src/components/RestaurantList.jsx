@@ -85,6 +85,7 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
                 <span className="tooltip-text" >{obj.remark}</span>
               </span>
               <div className='menu-card-buttons'>
+                <div className='menu-card-title'>{obj.cnt}</div>
                 <button className="menu-card-button" onClick={() => onSelect(obj.name)}>
                   <div className='add-icon'></div>
                 </button>

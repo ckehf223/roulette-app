@@ -1,40 +1,42 @@
 package com.spring.board.service;
 
-import com.spring.board.entity.Restaurant;
-import com.spring.board.repository.RestaurantRepository;
+import com.spring.board.core.CamelCaseMap;
+import com.spring.board.dto.RestaurantDto;
+import com.spring.board.mapper.RestaurantMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
 
-    private final RestaurantRepository restaurantRepository;
+//    private final RestaurantRepository restaurantRepository;
 
-    public Restaurant save(Restaurant restaurant) {
-        Restaurant res = null;
-        switch(restaurant.getStatus()){
+    private final RestaurantMapper restaurantMapper;
+
+    public Integer save(RestaurantDto restaurantDto) {
+        Integer result = 0;
+        switch(restaurantDto.getStatus()){
             case "C":
             case "U":
-                res = restaurantRepository.save(restaurant);
+                result = restaurantMapper.insertRestaurant(restaurantDto);
                 break;
             case "D":
                 break;
             default:
                 break;
         }
-        return res;
+        return result;
     }
 
-    public List<Restaurant> findAll() {
-        return restaurantRepository.findAll();
+    public List<CamelCaseMap> findRestaurantList() {
+        return restaurantMapper.findRestaurantList();
     }
 
-    public Optional<Restaurant> findById(Long id) {
-        return restaurantRepository.findById(id);
-    }
+//    public CamelCaseMap findById(Long id) {
+//        return restaurantMapper.findById(id);
+//    }
 
 }

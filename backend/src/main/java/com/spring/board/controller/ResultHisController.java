@@ -1,6 +1,7 @@
 package com.spring.board.controller;
 
 
+import com.spring.board.core.CamelCaseMap;
 import com.spring.board.dto.ResultHisDto;
 import com.spring.board.service.ResultHisService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class ResultHisController {
     private final ResultHisService resultService;
 
     @GetMapping("/find")
-    public ResponseEntity<List<ResultHisDto>> findResultHisList(ResultHisDto resultHisDto){
+    public ResponseEntity<List<CamelCaseMap>> findResultHisList(ResultHisDto resultHisDto){
         return ResponseEntity.ok(resultService.findResultHisList(resultHisDto));
     }
 
