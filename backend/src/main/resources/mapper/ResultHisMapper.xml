@@ -21,16 +21,10 @@
         , result_name
         , req_date
         )
-        SELECT A.USER_ID
-             , A.RES_ID
-             , A.RESULT_NAME
-             , A.REQ_DATE
-        FROM (
-                 #{userId} AS USER_ID
-               , #{resultName} AS RESULT_NAME
-               , #{reqDate} AS REQ_DATE
-               , (SELECT id FROM RESTAURANT WHERE name = #{resultName} LIMIT 1) AS RES_ID
-              )
+        SELECT #{userId} AS USER_ID
+             , (SELECT id FROM RESTAURANT WHERE name = #{resultName} LIMIT 1) AS RES_ID
+             , #{resultName} AS RESULT_NAME
+             , #{reqDate} AS REQ_DATE
     </insert>
 
 </mapper>
