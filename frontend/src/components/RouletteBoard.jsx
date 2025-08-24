@@ -223,7 +223,6 @@ function RouletteBoard({ items }) {
       const response = await instance.post("/result/his/save", {
         resultName: options[index],
         reqDate: getKrDate('yyyyMMddHHmmss'),
-        userId: 1,
       });
       console.log(response);
       if (response.status === 200 && response.data > 0) {

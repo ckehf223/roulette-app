@@ -1,7 +1,7 @@
 spring:
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://roulette-app-database-1.cd0y24wkquzb.ap-northeast-2.rds.amazonaws.com:3306/roulette?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mariadb://roulette-app-database-1.cd0y24wkquzb.ap-northeast-2.rds.amazonaws.com:3306/roulette?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: admin
     password: song1074++
 
@@ -10,8 +10,12 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
     show-sql: true
+
+  jwt:
+    secret: MySuperSecureJwtSecretKey1234567890!!@@
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
@@ -19,4 +23,13 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+logging:
+  level:
+    org.mybatis: DEBUG
+    org.apache.ibatis: DEBUG
+    jdbc.sqlonly: DEBUG
+    jdbc.sqltiming: DEBUG
+    jdbc.audit: DEBUG
+    jdbc.resultset: DEBUG
+    jdbc.connection: DEBUG
 

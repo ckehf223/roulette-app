@@ -1,38 +1,64 @@
-import axios from 'axios';
+import axios from "axios";
+import {
+  getAccessToken,
+  setAccessToken,
+  removeAccessToken,
+  clearRefreshToken,
+} from "/src/auth/Auth";
 
-// 환경변수에서 기본 API URL 가져오기
-const BASE_URL = '/api';
-
-// Axios 인스턴스 생성
 const instance = axios.create({
-  baseURL: BASE_URL,
-  timeout: 5000, // 요청 타임아웃 (선택)
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  baseURL: "/api",
+  withCredentials: true,
 });
 
-// 요청 인터셉터 (선택)
 instance.interceptors.request.use(
-  (config) => {
-    // 예: 토큰 자동 추가
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+  async (config) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// 응답 인터셉터 (선택)
-// axiosInstance.interceptors.response.use(
+// instance.interceptors.response.use(
 //   (response) => response,
-//   (error) => {
-//     // 전역 에러 처리
-//     console.error('API 요청 에러:', error);
+//   async (error) => {
+//     const originalRequest = error.config;
+//     if (
+//       (error.response.status === 401 || error.response.status === 403) &&
+//       !originalRequest._retry
+//     ) {
+//       originalRequest._retry = true;
+//       try {
+//         const response = await axios.post(
+//           "/api/refresh",
+//           {},
+//           { withCredentials: true }
+//         );
+//         if (response.status === 200) {
+//           const newAccessToken = response.headers["authorization"];
+//           setAccessToken(newAccessToken);
+//           instance.defaults.headers.Authorization = `${newAccessToken}`;
+//           originalRequest.headers.Authorization = `${newAccessToken}`;
+//           return instance(originalRequest);
+//         }
+//       } catch (refreshError) {
+//         await axios
+//           .post("/api/deleteRefresh", {}, { withCredentials: true })
+//           .then((response) => {
+//             removeAccessToken();
+//             clearRefreshToken();
+//             window.location.href = "/login";
+//           })
+//           .catch((error) => {
+//             removeAccessToken();
+//             clearRefreshToken();
+//             window.location.href = "/login";
+//           });
+//       }
+//     }
 //     return Promise.reject(error);
 //   }
 // );

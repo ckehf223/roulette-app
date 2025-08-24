@@ -1,9 +1,21 @@
-.menu-card-title{
+.aside-container {
+  width: 350px;
+  text-align: end;
+}
+
+.aside-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+
+.menu-card-title {
   font-family: "Inter", sans-serif;
   font-weight: bold;
   margin-right: 3px;
 }
-
 
 .menu-card-buttons {
   display: flex;
@@ -119,6 +131,8 @@
 }
 
 .is-secondary {
+  width: 42px;
+  height: 37px;
   border: 1px solid black;
   padding: 5px;
   font-weight: bold;
@@ -126,10 +140,10 @@
   border-radius: 5px;
 }
 
-.is-random{
+.is-random {
   width: 40px;
-  height: 36px;
-  background-image: url('/images/random-icon.png');
+  height: 35px;
+  background-image: url("/images/random-icon.png");
   background-repeat: no-repeat;
   background-size: 25px 25px;
   background-position: 7px 5px;
@@ -139,7 +153,7 @@
   cursor: pointer;
 }
 
-.buttons{
+.buttons {
   display: flex;
   align-items: center;
   gap: 7px;

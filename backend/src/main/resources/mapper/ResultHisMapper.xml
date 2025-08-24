@@ -11,6 +11,10 @@
                  LEFT OUTER JOIN TB_USER B
                                  ON A.USER_ID = B.ID
         WHERE #{baseDate} = DATE_FORMAT(A.REQ_DATE,'%Y%m')
+          <if test="userId != null and userId != '' ">
+              AND A.USER_ID = #{userId}
+          </if>
+        ORDER BY A.REQ_DATE DESC
     </select>
 
     <insert id="insertResultHis">

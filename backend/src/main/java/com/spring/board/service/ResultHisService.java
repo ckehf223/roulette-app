@@ -1,9 +1,12 @@
 package com.spring.board.service;
 
+import com.spring.board.auth.dto.CustomUserDetails;
 import com.spring.board.core.CamelCaseMap;
 import com.spring.board.mapper.ResultHisMapper;
 import com.spring.board.dto.ResultHisDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "/src/css/Header.css";
+import { useAuth } from '/src/common/AuthContext'
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
@@ -11,6 +12,10 @@ function Header() {
         return 0;
       case "/his":
         return 1;
+      case "/login":
+        return 2;
+      case "/join":
+        return 3;
       default:
         return 0;
     }
@@ -20,6 +25,7 @@ function Header() {
   const [today, setToday] = useState(null);
   const [day, setDay] = useState(null);
   const [activeIndex, setActiveIndex] = useState(getIndexFromPath(location.pathname));
+  const { isAuthenticated, logout } = useAuth();
   const nav = useNavigate();
 
   useEffect(() => {
@@ -49,7 +55,7 @@ function Header() {
         <div className="header-container">
           <div className="header-wrap">
             <div>
-              <img className="cursor-p" id="main-logo" src="/images/main-logo.jpg"></img>
+              <img className="cursor-p" id="main-logo" src="/images/main-logo.jpg" onClick={() => handleClick(0, '/')}></img>
             </div>
             <div className="dateDiv">
               <span className="todayString">{today}</span>
@@ -63,10 +69,14 @@ function Header() {
               <div className={`nav-item ${activeIndex === 0 ? 'active' : ''}`} onClick={() => handleClick(0, '/')}>Roulette</div>
               <div className={`nav-item ${activeIndex === 1 ? 'active' : ''}`} onClick={() => handleClick(1, '/his')}>Record</div>
             </div>
-            {/* <div className="nav-itemBox">
-              <div className="nav-item">Login</div>
-              <div className="nav-item">Logout</div>
-            </div> */}
+            <div className="nav-itemBox">
+              {isAuthenticated ?
+                (<div className="nav-item" onClick={() => logout()}>Logout</div>)
+                :
+                (<div className={`nav-item ${activeIndex === 2 ? 'active' : ''}`} onClick={() => handleClick(2, '/login')}>Login</div>)
+              }
+              {!isAuthenticated && (<div className={`nav-item ${activeIndex === 3 ? 'active' : ''}`} onClick={() => handleClick(3, '/join')}>Join</div>)}
+            </div>
           </div>
         </div>
       </div>

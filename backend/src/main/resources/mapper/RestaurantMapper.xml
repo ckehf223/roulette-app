@@ -9,7 +9,7 @@
              , R.REMARK
              , IFNULL((SELECT COUNT(*) FROM RESULTHIS WHERE RES_ID = R.ID),0) AS CNT
         FROM RESTAURANT R
-        ORDER BY R.ID
+        ORDER BY CNT DESC
     </select>
 
     <insert id="insertRestaurant">

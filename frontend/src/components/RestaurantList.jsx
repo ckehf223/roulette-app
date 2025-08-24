@@ -68,9 +68,9 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
   };
 
   return (
-    <div id='aside-container'>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '7px', marginBottom: '5px', padding: '3px' }}>
-        <h3 className='h5 fw-bold m-0'>Store List</h3>
+    <div className='aside-container'>
+      <div className='aside-box' >
+        <div className='fw-bold'>Store List</div>
         <div className='buttons'>
           <div className='is-random' onClick={() => { randomShuffle() }}></div>
           {isOpenBtn && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
