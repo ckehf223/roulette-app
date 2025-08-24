@@ -112,7 +112,7 @@ const ResModal = ({
 
         <div className="modal-body">
           <div className="grid-box">
-            <label className="grid-title" for="storeName">storeName</label>
+            <label className="grid-title" htmlFor="storeName">storeName</label>
             <input
               type="text"
               className="grid-input"
@@ -123,7 +123,7 @@ const ResModal = ({
             />
           </div>
           <div className="grid-box">
-            <label className="grid-title" for="link" >Link</label>
+            <label className="grid-title" htmlFor="link" >Link</label>
             <input
               type="text"
               className="grid-input"
@@ -133,7 +133,7 @@ const ResModal = ({
             />
           </div>
           <div className="grid-box">
-            <label className="grid-title" for="remark">description</label>
+            <label className="grid-title" htmlFor="remark">description</label>
             <input
               type="text"
               className="grid-input"

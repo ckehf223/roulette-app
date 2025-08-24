@@ -58,11 +58,11 @@
   border: none;
 }
 
-#username {
+.login-username {
   border: none;
 }
 
-#password {
+.login-password {
   border: none;
 }
 

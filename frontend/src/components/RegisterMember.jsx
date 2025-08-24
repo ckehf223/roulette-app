@@ -175,7 +175,7 @@ const RegisterMember = () => {
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
               <label htmlFor="username"><span className='InputStarSpan'>*</span>아이디</label>
-              <input type="text" id="username" name="username" value={formData.username}
+              <input className='RegisterInput' type="text" id="username" name="username" value={formData.username}
                 onChange={handleChange} onBlur={() => { validateUsername() }} />
             </div>
             <div className='RegisterMemberErrorArea'>
@@ -189,7 +189,7 @@ const RegisterMember = () => {
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
               <label htmlFor="email"><span className='InputStarSpan'>*</span> 이메일</label>
-              <input type="email" id="email" name="email" value={formData.email} placeholder='이메일 형식에 맞게 작성하세요.'
+              <input className='RegisterInput' type="email" id="email" name="email" value={formData.email} placeholder='이메일 형식에 맞게 작성하세요.'
                 onChange={handleChange} onBlur={validateEmail} required />
             </div>
             <div className='RegisterMemberErrorArea'>
@@ -202,7 +202,7 @@ const RegisterMember = () => {
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
               <label htmlFor="password"><span className='InputStarSpan'>*</span> 비밀번호</label>
-              <input type={passwordVisible ? "text" : "password"} name="password" value={formData.password}
+              <input className='RegisterInput' type={passwordVisible ? "text" : "password"} id='password' name="password" value={formData.password}
                 onChange={handleChange} onBlur={validatePasswordPatten} required placeholder='8~12자 영문,숫자,특수문자 혼합입니다.' />
               <span className="password-toggle" onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon className='EyeSlashIcon' icon={passwordVisible ? faEyeSlash : faEye} />
@@ -217,7 +217,7 @@ const RegisterMember = () => {
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
               <label htmlFor="passwordCheck"><span className='InputStarSpan'>*</span> 비밀번호 확인</label>
-              <input type={passwordCheckVisible ? "text" : "password"} name="passwordCheck" value={formData.passwordCheck}
+              <input className='RegisterInput' type={passwordCheckVisible ? "text" : "password"} id='passwordCheck' name="passwordCheck" value={formData.passwordCheck}
                 onChange={handleChange} onBlur={validatePasswordMatch} required />
               <span className="password-toggle" onClick={togglePasswordCheckVisibility}>
                 <FontAwesomeIcon className='EyeSlashIcon' icon={passwordCheckVisible ? faEyeSlash : faEye} />

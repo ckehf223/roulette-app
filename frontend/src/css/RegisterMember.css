@@ -65,18 +65,20 @@
   vertical-align: middle;
   margin-right: 3px;
 }
-.RegisterMemberInputArea input {
+
+.RegisterInput {
   position: relative;
   height: 40px;
   width: 350px;
   border: none;
   outline: none;
   padding-right: 40px;
-  border-bottom: 2px solid rgba(208, 208, 208, 0.5);
+  border-bottom: 3px solid rgba(208, 208, 208, 0.5);
 }
-.RegisterMemberInputArea input:focus {
+.RegisterInput:focus {
   border-bottom: 2px solid rgb(84, 83, 83);
 }
+
 .RegisterMemberInputArea select {
   width: 430px;
   box-sizing: border-box;

@@ -76,13 +76,13 @@ const Login = () => {
             <label htmlFor="username" style={{ width: "40px" }}>
               <FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "20px" }} />
             </label>
-            <input type="text" id="username" value={username} onChange={(e) => setUserEmail(e.target.value)} placeholder="아이디" />
+            <input type="text" className="login-username" id='username' value={username} onChange={(e) => setUserEmail(e.target.value)} placeholder="아이디" />
           </div>
           <div className="LoginMainInput-group">
             <label htmlFor="password" style={{ width: "40px" }}>
               <FontAwesomeIcon icon={faKey} style={{ fontSize: "20px" }} />
             </label>
-            <input type={showPassword ? "text" : "password"} id="password" value={password}
+            <input type={showPassword ? "text" : "password"} className='login-password' id="password" value={password}
               onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호" autoComplete="off" />
             <span className="password-toggle" onClick={toggleShowPassword}>
               <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} style={{ fontSize: "18px", cursor: "pointer" }} />
