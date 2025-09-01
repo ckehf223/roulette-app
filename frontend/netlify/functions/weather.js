@@ -3,7 +3,8 @@ import { getKrDate } from "../../src/utils/dateUtils";
 export async function handler(event, context) {
   const baseDate = getKrDate("yyyyMMdd");
   const baseTime = getKrDate("HHmm");
-  const serviceKey = import.meta.env.WEATHER_API_KEY;
+  const serviceKey = import.meta.env.VITE_WEATHER_API_KEY;
+
 
   
   const encodedKey = encodeURIComponent(serviceKey); // 반드시 인코딩!
