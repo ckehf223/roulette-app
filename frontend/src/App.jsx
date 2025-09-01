@@ -11,6 +11,7 @@ import ProtectedRoute from './common/ProtectedRoute';
 import Login from './components/Login';
 import usePageTracking from './common/usePageTracking';
 import ReactGA from "react-ga4";
+import Weather from './components/Weather';
 
 Modal.setAppElement('#root'); // 접근성 설정용 (필수)
 

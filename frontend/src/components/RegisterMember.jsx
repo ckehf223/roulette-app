@@ -167,7 +167,7 @@ const RegisterMember = () => {
     <div className='RegisterMemberWrap'>
       <div className="RegisterMember">
         <div className='RegisterMemberLogoArea'>
-          <img src="/images/main-logo.jpg"></img>
+          <img src="/images/main-logo.png"></img>
         </div>
 
         <form className="register-form" onSubmit={handleSubmit}>

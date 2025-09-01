@@ -10,7 +10,7 @@
 
 .header-wrap {
   display: flex;
-  align-items: end;
+  align-items: center;
   gap: 20px;
   width: 70%;
   height: 50px;
@@ -23,7 +23,10 @@
 
 #main-logo {
   width: 120px;
-  height: 40px;
+  height: 50px;
+  background-image: url('/images/main-logo.png');
+  background-size: 120px 50px;
+  background-repeat: no-repeat;
 }
 
 .dateDiv {
@@ -85,4 +88,19 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   background-color: #f3f2f2;
   font-weight: bold;
+}
+
+.weather-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.weather-icon{
+  font-size: 2rem;
+}
+
+.weather-temp{
+  font-weight: 400;
 }

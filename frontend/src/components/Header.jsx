@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "/src/css/Header.css";
 import { useAuth } from '/src/common/AuthContext'
 import { useLocation, useNavigate } from "react-router-dom";
+import Weather from "./Weather";
 
 function Header() {
   const location = useLocation();
@@ -55,12 +56,13 @@ function Header() {
         <div className="header-container">
           <div className="header-wrap">
             <div>
-              <img className="cursor-p" id="main-logo" src="/images/main-logo.jpg" onClick={() => handleClick(0, '/')}></img>
+              <div className="cursor-p" id="main-logo" onClick={() => handleClick(0, '/')}></div>
             </div>
             <div className="dateDiv">
               <span className="todayString">{today}</span>
               <span className="dayString">({day})</span>
             </div>
+            <Weather />
           </div>
         </div>
         <div className="nav-container">

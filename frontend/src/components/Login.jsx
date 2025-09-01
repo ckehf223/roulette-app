@@ -49,7 +49,7 @@ const Login = () => {
     }
   };
 
-  const findInfo = (e, url, title) => {
+  const findInfo = (url, title) => {
     // e.preventDefault();
     // const width = 650; // 팝업 창의 너비
     // const height = 700; // 팝업 창의 높이
@@ -69,7 +69,7 @@ const Login = () => {
     <div className='LoginMainWrap'>
       <div className="LoginMain">
         <div className="logo-container">
-          <img src="/images/main-logo.jpg"></img>
+          <img src="/images/main-logo.png"></img>
         </div>
         <form className="login-form">
           <div className="LoginMainInput-group">
@@ -94,7 +94,7 @@ const Login = () => {
           <button type="submit" className="login-button" onClick={handleSubmit}>로그인</button>
         </form>
         <div className="help-links">
-          <a href="#" onClick={() => findInfo(e, '/findbyid', '아이디 찾기')}>아이디 찾기</a> | <a href="#" onClick={() => findInfo(e, '/findbypw', '비밀번호 찾기')}>비밀번호 찾기</a> | <Link to='/join'>회원가입</Link>
+          <a href="#" onClick={() => findInfo('/findbyid', '아이디 찾기')}>아이디 찾기</a> | <a href="#" onClick={() => findInfo('/findbypw', '비밀번호 찾기')}>비밀번호 찾기</a> | <Link to='/join'>회원가입</Link>
         </div>
       </div>
     </div>

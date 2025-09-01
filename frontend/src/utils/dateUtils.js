@@ -41,6 +41,8 @@ export function getKrDate(formatType = "default",date = new Date()) {
       return `${year}.${month}.${day}`;
     case "time": 
       return `${hours}:${minutes}:${seconds}`;
+    case "HHmm" :
+      return `${hours}${minutes}`;
     case "compact": 
       return `${year}${month}${day}`;
     case "ko":
