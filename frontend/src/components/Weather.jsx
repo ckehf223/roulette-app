@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getWeatherIcon } from "../common/weather";
 
 function Weather() {
-  const [temp, setTemp] = useState(0);
+  const [temp, setTemp] = useState(null);
   const [icon, setIcon] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Weather() {
 
         const sky = items.find(i => i.category === "SKY")?.fcstValue;
         const pty = items.find(i => i.category === "PTY")?.fcstValue;
-        const t1h = items.find(i => i.category === "T1H")?.fcstValue;
+        const t1h = items.find(i => i.category === "T1H")?.fcstValue + '℃';
 
         setIcon(getWeatherIcon(sky, pty));
         setTemp(t1h);
@@ -32,7 +32,7 @@ function Weather() {
   return (
     <div className="weather-box">
       <div className="weather-icon">{icon}</div>
-      <div className="weather-temp">{temp}℃</div>
+      <div className="weather-temp">{temp}</div>
     </div>
   );
 }
