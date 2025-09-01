@@ -1,8 +1,6 @@
 import { getKrDate } from "../../src/utils/dateUtils";
 
 export async function handler(event, context) {
-  // const baseDate = new Date().toISOString().slice(0,10).replace(/-/g,"");
-  // const baseTime = "0600"; // 예시로 고정
   const baseDate = getKrDate("yyyyMMdd");
   const baseTime = getKrDate("HHmm");
   const serviceKey = import.meta.env.WEATHER_API_KEY;
