@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getWeatherIcon } from "../common/weather";
+import { getKrDate } from "../utils/dateUtils";
 
 function Weather() {
   const [temp, setTemp] = useState(null);
