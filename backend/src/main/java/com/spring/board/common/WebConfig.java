@@ -12,7 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:5173",            // 개발용
                         "https://ustralunchroulette.netlify.app",   // netlify url
-                        "https://api.urroulette.com"                // API
+                        "https://api.urroulette.com",                // API
+                        "https://urroulette.com"
                 )
                 .allowedMethods("*")
                 .allowedHeaders("*")
