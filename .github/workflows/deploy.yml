@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Build and Deploy
 
 on:
   push:
@@ -7,29 +7,17 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
-      - name: Grant execute permission for Gradle
-        run: chmod +x backend/gradlew
-
-      - name: Build with Gradle
+      - name: Build Spring Boot
         run: cd backend && ./gradlew build -x test
 
-      - name: Deploy to EC2 and Restart
+      - name: Restart Spring Boot
         run: |
-          scp -o StrictHostKeyChecking=no backend/build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar ec2-user@${{ secrets.EC2_HOST }}:/home/ec2-user/ustra-roulette-app-0.0.1-SNAPSHOT.jar
-
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} '
-            sudo mv /home/ec2-user/ustra-roulette-app-0.0.1-SNAPSHOT.jar /opt/ustra-roulette-app/ustra-roulette-app-0.0.1-SNAPSHOT.jar &&
-            sudo systemctl restart ustra-roulette-app &&
-            sudo systemctl status ustra-roulette-app --no-pager
-          '
+          sudo mv backend/build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar /opt/ustra-roulette-app/ustra-roulette-app-0.0.1-SNAPSHOT.jar
+          sudo systemctl restart ustra-roulette-app
+          sudo systemctl status ustra-roulette-app --no-pager
