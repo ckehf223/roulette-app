@@ -13,10 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Grant execute permission for Gradle
+        run: chmod +x backend/gradlew
+
       - name: Build Spring Boot
         run: cd backend && ./gradlew build -x test
 
-      - name: Restart Spring Boot
+      - name: Deploy JAR
         run: |
           sudo mv backend/build/libs/ustra-roulette-app-0.0.1-SNAPSHOT.jar /opt/ustra-roulette-app/ustra-roulette-app-0.0.1-SNAPSHOT.jar
           sudo systemctl restart ustra-roulette-app
