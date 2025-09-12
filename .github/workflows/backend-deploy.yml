@@ -1,0 +1,34 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "backend/**"
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x backend/gradlew
+
+      - name: Build backend
+        run: |
+          cd backend
+          ./gradlew clean build -x test
+
+      - name: Restart backend
+        run: |
+          pkill -f 'java -jar' || true
+          nohup java -jar backend/build/libs/*.jar > backend/app.log 2>&1 &

@@ -1,0 +1,32 @@
+name: Frontend Deploy
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "frontend/**"
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: Deploy to Nginx
+        run: |
+          sudo rm -rf /usr/share/nginx/html/*
+          sudo cp -r frontend/build/* /usr/share/nginx/html/
+          sudo systemctl restart nginx
