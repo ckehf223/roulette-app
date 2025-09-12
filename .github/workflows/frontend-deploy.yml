@@ -28,5 +28,5 @@ jobs:
       - name: Deploy to Nginx
         run: |
           sudo rm -rf /usr/share/nginx/html/*
-          sudo cp -r ./frontend/build/* /usr/share/nginx/html/
+          sudo cp -r ./frontend/dist/* /usr/share/nginx/html/
           sudo systemctl restart nginx
