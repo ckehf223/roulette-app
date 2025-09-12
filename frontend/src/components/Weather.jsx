@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getWeatherIcon } from "../common/weather";
-import { getKrDate } from "../utils/dateUtils";
+import instance from '/src/auth/axios.js';
 
 function Weather() {
   const [temp, setTemp] = useState(null);
@@ -9,11 +9,8 @@ function Weather() {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const response = await fetch("/.netlify/functions/weather");
-        const result = await response.json();
-        const items = result.response.body.items.item;
-
-        console.log(result);
+        const response = await instance.get("/weather/today?nx=60&ny=127");
+        const items = response.data.response.body.items.item;
 
         const sky = items.find(i => i.category === "SKY")?.fcstValue;
         const pty = items.find(i => i.category === "PTY")?.fcstValue;

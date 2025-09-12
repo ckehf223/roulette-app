@@ -35,11 +35,11 @@ public class SecurityConfig {
                 // 요청별 권한 설정
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // 로그인/회원가입 허용
-                        .requestMatchers("/api/res/**").permitAll()
+                        .requestMatchers("/api/res/find").permitAll()
                         .requestMatchers("/api/member/**").permitAll()
                         .requestMatchers("/api/result/his/save").permitAll()
                         .requestMatchers("/api/**").permitAll()
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/api/weather").permitAll()
                         .anyRequest().authenticated()
                 )
 

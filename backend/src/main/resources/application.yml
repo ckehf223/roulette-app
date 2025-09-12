@@ -33,3 +33,6 @@ logging:
     jdbc.resultset: DEBUG
     jdbc.connection: DEBUG
 
+weather:
+  api:
+    secretkey: Yb3NKUnIpEeSIOB1CSCBVejjCCvTaFdfriGq9HHhXFF%2BbYctN4Cyd08YQ0Iu%2FrFBv7w%2F%2FtRVvd%2BRFs39oU8HZw%3D%3D

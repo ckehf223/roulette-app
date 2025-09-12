@@ -37,9 +37,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.info("===========================================================================");
         log.info("path = " + path);
         if (path.startsWith("/api/auth/")
-                || path.startsWith("/api/res/")
+                || path.startsWith("/api/res/find")
                 || path.startsWith("/api/member/")
                 || path.equals("/api/result/his/save")
+                || path.equals("/api/weather")
                 || path.equals("/")) {
             filterChain.doFilter(request, response); // 그냥 통과
             return;
