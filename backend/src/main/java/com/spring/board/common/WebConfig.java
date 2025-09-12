@@ -11,9 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:5173",            // 개발용
-                        "https://ustralunchroulette.netlify.app",   // netlify url
                         "https://api.urroulette.com",                // API
-                        "https://urroulette.com"
+                        "https://urroulette.com",
+                        "https://www.urroulette.com"
                 )
                 .allowedMethods("*")
                 .allowedHeaders("*")
