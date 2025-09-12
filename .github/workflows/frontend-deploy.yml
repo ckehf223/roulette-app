@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: self-hosted # EC2 러너에서 실행
 
     steps:
       - name: Checkout code
