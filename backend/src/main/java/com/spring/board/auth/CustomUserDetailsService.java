@@ -23,7 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException("사용자 없음: " + username);
         }
-
         return new CustomUserDetails(
                 user.getId(),
                 user.getUsername(),
