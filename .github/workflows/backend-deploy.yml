@@ -31,4 +31,6 @@ jobs:
       - name: Restart backend
         run: |
           pkill -f 'java -jar' || true
-          nohup java -jar backend/build/libs/*.jar > backend/app.log 2>&1 &
+          cp backend/build/libs/*.jar /opt/ustra-roulette-app/ustra-roulette-app-0.0.1-SNAPSHOT.jar
+          cd /opt/ustra-roulette-app
+          nohup java -jar ustra-roulette-app-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
