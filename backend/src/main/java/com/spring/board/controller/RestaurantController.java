@@ -17,7 +17,7 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/find")
-    public ResponseEntity<List<CamelCaseMap>>  findRestaurantList() {
+    public ResponseEntity<List<CamelCaseMap>> findRestaurantList() {
         return ResponseEntity.ok(restaurantService.findRestaurantList());
     }
 
