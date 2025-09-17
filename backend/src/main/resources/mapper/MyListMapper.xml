@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.board.mapper.MyListMapper">
+
+    <select id="findMyList" resultType="CamelCaseMap">
+        SELECT M.ID
+             , M.NAME
+             , M.LINK_URL
+             , M.REMARK
+        FROM MYLIST M
+        WHERE M.USER_ID = #{userId}
+    </select>
+
+    <insert id="insertMyList">
+        INSERT INTO MYLIST
+        (
+          user_id
+        , name
+        , link_url
+        , remark
+        , res_id
+        )
+        VALUES
+        (
+           #{userId}
+         , #{name}
+         , #{linkUrl}
+         , #{remark}
+         , #{resId}
+        )
+    </insert>
+
+    <update id="updateMyList">
+        UPDATE MYLIST
+        SET name = #{name}
+          , link_url = #{linkUrl}
+          , remark = #{remark}
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </update>
+
+    <delete id="deleteMyList">
+        DELETE FROM MYLIST
+        WHERE id = #{id}
+          AND user_id = #{userId}
+    </delete>
+
+</mapper>

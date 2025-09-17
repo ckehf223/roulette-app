@@ -15,26 +15,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantService {
 
-
     private final RestaurantMapper restaurantMapper;
+
+    public List<CamelCaseMap> findRestaurantList() {
+        return restaurantMapper.findRestaurantList();
+    }
 
     public Integer save(RestaurantDto restaurantDto) {
         Integer result = 0;
         switch(restaurantDto.getStatus()){
             case "C":
-            case "U":
                 result = restaurantMapper.insertRestaurant(restaurantDto);
                 break;
+            case "U":
+                result = restaurantMapper.updateRestaurant(restaurantDto);
+                break;
             case "D":
+                result = restaurantMapper.deleteRestaurant(restaurantDto);
                 break;
             default:
                 break;
         }
         return result;
-    }
-
-    public List<CamelCaseMap> findRestaurantList() {
-        return restaurantMapper.findRestaurantList();
     }
 
 }

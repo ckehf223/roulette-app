@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/res")
+@RequestMapping("/api/shareList")
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
@@ -22,20 +22,8 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> create(@RequestBody RestaurantDto restaurantDto) {
+    public ResponseEntity<Integer> save(@RequestBody RestaurantDto restaurantDto) {
         return ResponseEntity.ok(restaurantService.save(restaurantDto));
     }
-
-//    @PostMapping
-//    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
-//        Restaurant saved = restaurantService.save(restaurant);
-//        return ResponseEntity.ok(saved);
-//    }
-//
-//    @GetMapping("/find")
-//    public ResponseEntity<List<Restaurant>>  list() {
-//        return ResponseEntity.ok(restaurantService.findAll());
-//    }
-
 
 }

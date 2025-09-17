@@ -10,6 +10,9 @@ const ResModal = ({
   toggle = () => { },
   title = "",
   reload = () => { },
+  role = "",
+  type = "",
+  url = "",
   selectedItem = {},
 }) => {
   const [resName, setResName] = useState("");
@@ -20,8 +23,19 @@ const ResModal = ({
   const [successMsg, setSuccessMsg] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [enable, setEnable] = useState(false);
 
   useEffect(() => {
+    if (type === "shareList") {
+      if (role === "ADMIN") {
+        setEnable(true);
+      } else {
+        setEnable(false);
+      }
+    } else {
+      setEnable(true);
+    }
+
     if (selectedItem && Object.keys(selectedItem).length > 0) {
       setIsUpdate(true);
       setId(selectedItem.id);
@@ -64,7 +78,7 @@ const ResModal = ({
   };
 
   const handleSendClick = async () => {
-
+    let url = `/${type}`;
     if (!resName) {
       alert('storeName is required');
       return;
@@ -73,12 +87,32 @@ const ResModal = ({
     const msgDom = document.getElementById('successMsg');
     msgDom.className = "success-message";
     try {
-      await instance.post("/res", {
+      await instance.post(url, {
         id: id,
         name: resName,
         linkUrl: linkUrl,
         remark: remark,
         status: status
+      });
+      setIsSuccess(true);
+      setSuccessMsg('Success');
+      msgDom.classList.add('fc-blue');
+      setTimeout(() => { reload(); toggle(); }, 1000);
+    } catch (error) {
+      setSuccessMsg('Fail');
+      msgDom.classList.add('fc-red');
+      console.error("report Error " + error);
+    }
+  };
+
+  const handleDeleteClick = async () => {
+    let url = `/${type}`;
+    const msgDom = document.getElementById('successMsg');
+    msgDom.className = "success-message";
+    try {
+      await instance.post(url, {
+        id: id,
+        status: "D"
       });
       setIsSuccess(true);
       setSuccessMsg('Success');
@@ -119,7 +153,7 @@ const ResModal = ({
               value={resName}
               id="storeName"
               onChange={onChangeResName}
-              disabled={isSuccess || isUpdate}
+              disabled={!enable && (isSuccess || isUpdate)}
             />
           </div>
           <div className="grid-box">
@@ -130,6 +164,7 @@ const ResModal = ({
               value={linkUrl}
               id="link"
               onChange={onChangeLinkUrl}
+              disabled={!enable && (isSuccess || isUpdate)}
             />
           </div>
           <div className="grid-box">
@@ -140,17 +175,19 @@ const ResModal = ({
               value={remark}
               id="remark"
               onChange={onChangeRemark}
+              disabled={!enable && (isSuccess || isUpdate)}
             />
           </div>
 
         </div>
         <div className="modal-footer">
           <p id="successMsg" className="success-message">{successMsg}</p>
-          {!isSuccess &&
-            <div className="buttons">
-              <button className="cancel-button" onClick={handleCancelClick}>cancel</button>
-              <button className="save-button" onClick={handleSendClick}>save changes</button>
-            </div>}
+
+          <div className="buttons">
+            <button className="cancel-button" onClick={handleCancelClick}>close</button>
+            {enable && !isSuccess && <button className="save-button" onClick={handleSendClick}>save changes</button>}
+            {enable && isUpdate && !isSuccess && <button className="delete-button" onClick={handleDeleteClick}>delete</button>}
+          </div>
         </div>
 
       </Modal>

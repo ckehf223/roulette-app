@@ -37,8 +37,8 @@ public class ResultHisController {
             // 로그인 되어있으면 토큰에서 꺼낸 userId 사용
             resultHisDto.setUserId(user.getUserId());
         } else {
-            // 로그인 안 되어있으면 기본값
-            resultHisDto.setUserId(1L);
+            // 로그인 안 되어있으면 기본값 //unknown
+            resultHisDto.setUserId(2L);
         }
         return ResponseEntity.ok(resultService.insertResultHis(resultHisDto));
     }

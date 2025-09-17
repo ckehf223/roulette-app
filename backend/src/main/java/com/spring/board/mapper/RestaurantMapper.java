@@ -11,5 +11,7 @@ public interface RestaurantMapper {
 
     Integer insertRestaurant(RestaurantDto restaurantDto);
 
-//    CamelCaseMap findById(Long id);
+    Integer updateRestaurant(RestaurantDto restaurantDto);
+
+    Integer deleteRestaurant(RestaurantDto restaurantDto);
 }

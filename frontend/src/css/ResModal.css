@@ -127,6 +127,22 @@
   background-color: #000000c5;
 }
 
+.delete-button {
+  padding: 8px 16px;
+  background-color: red;
+  font-family: "Inter", sans-serif;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+.delete-button:hover {
+  background-color: rgb(252, 57, 57);
+}
+
 .success-message {
   font-family: "Inter", sans-serif;
   font-weight: 500;

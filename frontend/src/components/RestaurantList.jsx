@@ -3,13 +3,18 @@ import instance from '/src/auth/axios';
 import useModal from '/src/common/useModal';
 import ResModal from '/src/components/ResModal';
 import foodList from '/src/common/foodList';
+import { useAuth } from '/src/common/AuthContext';
 import '/src/css/RestaurantList.css';
+import { useNavigate } from 'react-router-dom';
 
 const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
   const [resList, setResList] = useState([]);
   const [isOpenBtn, setIsOpenBtn] = useState(false);
   const { isModalOpen, toggleModal } = useModal();
   const [selectedItem, setSelectedItem] = useState({});
+  const [activeTab, setActiveTab] = useState("shareList");
+  const { isAuthenticated, role } = useAuth();
+  const nav = useNavigate();
 
   const countRef = useRef(count);
   useEffect(() => {
@@ -17,8 +22,9 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
   }, [count]);
 
   const getResList = async () => {
+    let url = `/${activeTab}/find`;
     try {
-      const response = await instance.get("/res/find");
+      const response = await instance.get(url);
       setResList(response.data);
       setIsOpenBtn(true);
     } catch (error) {
@@ -30,7 +36,7 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
 
   useEffect(() => {
     getResList();
-  }, [])
+  }, [activeTab])
 
   const openResModal = (id) => {
     setSelectedItem({});
@@ -40,6 +46,15 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
     }
     toggleModal();
   };
+
+  const changeActiveTab = (type) => {
+    if (!isAuthenticated) {
+      nav('/login');
+      return;
+    }
+    setResList([]);
+    setActiveTab(type);
+  }
 
 
   const randomShuffle = async () => {
@@ -73,10 +88,15 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
         <div className='fw-bold'>Store List</div>
         <div className='buttons'>
           <div className='is-random' onClick={() => { randomShuffle() }}></div>
-          {isOpenBtn && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
+          {isOpenBtn && (activeTab === "myList" || role === "ADMIN") && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
         </div>
       </div>
-      <div className='card' style={{ width: '100%' }}>
+      <div className='card'>
+        <div className="tab-container">
+          <div className={`tab-btn img-home ${activeTab === "shareList" ? "active" : ""}`} onClick={() => changeActiveTab("shareList")}></div>
+          <div className={`tab-btn img-star ${activeTab === "myList" ? "active" : ""}`} onClick={() => changeActiveTab("myList")}></div>
+          <div className='tab-blank'> </div>
+        </div>
         <ul className='menu-list'>
           {resList.map((obj, idx) => (
             <li key={obj.name} className="menu-card">
@@ -85,7 +105,7 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
                 <span className="tooltip-text" >{obj.remark}</span>
               </span>
               <div className='menu-card-buttons'>
-                <div className='menu-card-title'>{obj.cnt}</div>
+                {activeTab === "shareList" && <div className='menu-card-title'>{obj.cnt}</div>}
                 <button className="menu-card-button" onClick={() => onSelect(obj.name)}>
                   <div className='add-icon'></div>
                 </button>
@@ -102,6 +122,8 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
         toggle={openResModal}
         title="Edit store"
         reload={getResList}
+        role={role}
+        type={activeTab}
         selectedItem={selectedItem}
       ></ResModal>
     </div >

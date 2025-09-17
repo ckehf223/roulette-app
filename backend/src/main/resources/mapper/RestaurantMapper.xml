@@ -27,4 +27,17 @@
         )
     </insert>
 
+    <update id="updateRestaurant">
+        UPDATE RESTAURANT
+        SET name = #{name}
+          , link_url = #{linkUrl}
+          , remark = #{remark}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteRestaurant">
+        DELETE FROM RESTAURANT
+        WHERE id = #{id}
+    </delete>
+
 </mapper>

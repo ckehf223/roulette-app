@@ -52,16 +52,19 @@
   background-repeat: no-repeat;
 }
 
-.menu-list {
+.card {
   min-width: 350px;
-  height: 100%;
   padding: 1rem;
   border-radius: 12px;
   background-color: #f8f9fa;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
   margin: 0;
-  overflow-y: scroll;
+}
+
+.menu-list {
+  width: 100%;
   height: 500px;
+  overflow-y: scroll;
 }
 
 .menu-card {
@@ -157,4 +160,48 @@
   display: flex;
   align-items: center;
   gap: 7px;
+}
+
+.tab-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+}
+
+.tab-blank {
+  width: calc(100% - 100px);
+  border-bottom: 2px solid black;
+}
+
+.tab-btn {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  border-radius: 7px 7px 0 0;
+  border-bottom: 2px solid black;
+}
+
+.img-home {
+  background-image: url("/images/house-icon.png");
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  background-position: 8px 10px;
+}
+
+.img-star {
+  background-image: url("/images/star-icon.png");
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  background-position: 8px 10px;
+}
+
+.tab-btn.active {
+  width: 42px;
+  height: 42px;
+  background-color: #fff;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-top: 2px solid black;
+  border-bottom: none;
 }
