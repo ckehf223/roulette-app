@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         log.info("path = " + path);
         if (path.startsWith("/api/auth/")
-                || path.equals("/api/shareList/find")
+                || path.equals("/api/sharelist/find")
                 || path.startsWith("/api/member/")
                 || path.equals("/api/result/his/save")
                 || path.equals("/api/weather")

@@ -26,7 +26,7 @@ const ResModal = ({
   const [enable, setEnable] = useState(false);
 
   useEffect(() => {
-    if (type === "shareList") {
+    if (type === "sharelist") {
       if (role === "ADMIN") {
         setEnable(true);
       } else {

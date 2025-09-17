@@ -12,7 +12,7 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
   const [isOpenBtn, setIsOpenBtn] = useState(false);
   const { isModalOpen, toggleModal } = useModal();
   const [selectedItem, setSelectedItem] = useState({});
-  const [activeTab, setActiveTab] = useState("shareList");
+  const [activeTab, setActiveTab] = useState("sharelist");
   const { isAuthenticated, role } = useAuth();
   const nav = useNavigate();
 
@@ -93,7 +93,7 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
       </div>
       <div className='card'>
         <div className="tab-container">
-          <div className={`tab-btn img-home ${activeTab === "shareList" ? "active" : ""}`} onClick={() => changeActiveTab("shareList")}></div>
+          <div className={`tab-btn img-home ${activeTab === "sharelist" ? "active" : ""}`} onClick={() => changeActiveTab("sharelist")}></div>
           <div className={`tab-btn img-star ${activeTab === "myList" ? "active" : ""}`} onClick={() => changeActiveTab("myList")}></div>
           <div className='tab-blank'> </div>
         </div>
@@ -105,7 +105,7 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
                 <span className="tooltip-text" >{obj.remark}</span>
               </span>
               <div className='menu-card-buttons'>
-                {activeTab === "shareList" && <div className='menu-card-title'>{obj.cnt}</div>}
+                {activeTab === "sharelist" && <div className='menu-card-title'>{obj.cnt}</div>}
                 <button className="menu-card-button" onClick={() => onSelect(obj.name)}>
                   <div className='add-icon'></div>
                 </button>
