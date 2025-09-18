@@ -52,7 +52,6 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
       nav('/login');
       return;
     }
-    setResList([]);
     setActiveTab(type);
   }
 
