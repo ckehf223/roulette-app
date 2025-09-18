@@ -28,7 +28,7 @@ public class WeatherController {
 
 
     @GetMapping("/today")
-    public ResponseEntity<String> getWeather(@RequestParam String nx, @RequestParam String ny, HttpServletRequest request) throws URISyntaxException {
+    public ResponseEntity<String> getWeather(@RequestParam String nx, @RequestParam String ny) throws URISyntaxException {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now();
 

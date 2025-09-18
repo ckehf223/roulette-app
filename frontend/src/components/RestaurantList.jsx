@@ -48,10 +48,15 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
   };
 
   const changeActiveTab = (type) => {
-    if (!isAuthenticated) {
+    if (activeTab === type) {
+      return;
+    }
+
+    if (!isAuthenticated && type === 'myList') {
       nav('/login');
       return;
     }
+
     setActiveTab(type);
   }
 
