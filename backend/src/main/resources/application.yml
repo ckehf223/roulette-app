@@ -5,6 +5,22 @@ spring:
     username: admin
     password: song1074++
 
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: ckehf223@naver.com
+    password: worud123@@
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -12,7 +28,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
-    show-sql: true
+    show-sql: false
 
   jwt:
     secret: MySuperSecureJwtSecretKey1234567890!!@@
@@ -22,16 +38,17 @@ mybatis:
   type-aliases-package: com.spring.board
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
 
 logging:
   level:
-    org.mybatis: DEBUG
-    org.apache.ibatis: DEBUG
-    jdbc.sqlonly: DEBUG
-    jdbc.sqltiming: DEBUG
-    jdbc.audit: DEBUG
-    jdbc.resultset: DEBUG
-    jdbc.connection: DEBUG
+    org.mybatis: INFO
+    org.apache.ibatis: INFO
+    jdbc.sqlonly: OFF
+    jdbc.sqltiming: OFF
+    jdbc.audit: OFF
+    jdbc.resultset: OFF
+    jdbc.connection: OFF
 
 weather:
   api:

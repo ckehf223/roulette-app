@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/result/his/save").permitAll()
                         .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/api/weather/**").permitAll()
+                        .requestMatchers("/api/auth/email/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -51,7 +52,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://urroulette.com", "https://www.urroulette.com","https://api.urroulette.com", "http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of("http://urroulette.com","http://api.urroulette.com","https://urroulette.com", "https://www.urroulette.com","https://api.urroulette.com", "http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
         configuration.setAllowCredentials(true); // JWT 쿠키 같은 거 쓰면 필요
