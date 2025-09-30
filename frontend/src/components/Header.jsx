@@ -62,7 +62,7 @@ function Header() {
               <span className="todayString">{today}</span>
               <span className="dayString">({day})</span>
             </div>
-            <Weather />
+            {/* <Weather /> */}
           </div>
         </div>
         <div className="nav-container">
