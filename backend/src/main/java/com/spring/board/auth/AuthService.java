@@ -1,8 +1,5 @@
 package com.spring.board.auth;
 
-import com.spring.board.auth.mail.EmailVerificationService;
-import com.spring.board.auth.mail.MailService;
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
