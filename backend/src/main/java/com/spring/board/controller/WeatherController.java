@@ -15,6 +15,8 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -28,7 +30,7 @@ public class WeatherController {
 
 
     @GetMapping("/today")
-    public ResponseEntity<String> getWeather(@RequestParam String nx, @RequestParam String ny) throws URISyntaxException {
+    public ResponseEntity<?> getWeather(@RequestParam String nx, @RequestParam String ny) {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now();
 
@@ -44,21 +46,31 @@ public class WeatherController {
             baseTime = hours + "30";
         }
 
-        String url = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"
-                + "?serviceKey=" + secretKey
-                + "&pageNo=1"
-                + "&numOfRows=1000"
-                + "&dataType=JSON"
-                + "&base_date=" + baseDate
-                + "&base_time=" + baseTime
-                + "&nx=" + nx
-                + "&ny=" + ny
-                ;
+        try{
+            String url = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"
+                    + "?serviceKey=" + secretKey
+                    + "&pageNo=1"
+                    + "&numOfRows=1000"
+                    + "&dataType=JSON"
+                    + "&base_date=" + baseDate
+                    + "&base_time=" + baseTime
+                    + "&nx=" + nx
+                    + "&ny=" + ny
+                    ;
 
-        URI uri = new URI(url);
-        String response = restTemplate.getForObject(uri, String.class);
+            URI uri = new URI(url);
+            String response = restTemplate.getForObject(uri, String.class);
+            return ResponseEntity.ok(response);
+        }catch(Exception e){
+            log.error("날씨 API 호출 실패", e);
 
-        return ResponseEntity.ok(response);
+            Map<String, Object> fallback = new HashMap<>();
+            fallback.put("status", "fail");
+            fallback.put("message", "현재 날씨 API 점검 중입니다. 잠시 후 다시 시도해주세요.");
+
+            return ResponseEntity.ok(fallback);
+        }
+
     }
 
 }

@@ -10,6 +10,11 @@ function Weather() {
     const fetchWeather = async () => {
       try {
         const response = await instance.get("/weather/today?nx=60&ny=127");
+        if (response.status === 'fail') {
+          console.error(response.message);
+          return;
+        }
+
         const items = response.data.response.body.items.item;
 
         const sky = items.find(i => i.category === "SKY")?.fcstValue;
