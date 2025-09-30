@@ -16,7 +16,7 @@ const RegisterMember = () => {
     password: '',
     passwordCheck: '',
     username: '',
-    emailCode: '',
+    // emailCode: '',
   });
 
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -69,10 +69,10 @@ const RegisterMember = () => {
       return;
     }
 
-    if (!isVerifyEmail) {
-      alert('이메일 인증을 완료해주세요.');
-      return;
-    }
+    // if (!isVerifyEmail) {
+    //   alert('이메일 인증을 완료해주세요.');
+    //   return;
+    // }
 
     if (passwordError) {
       alert('유효한 비밀번호를 입력해주세요.');
@@ -298,7 +298,7 @@ const RegisterMember = () => {
               <label htmlFor="email"><span className='InputStarSpan'>*</span> 이메일</label>
               <input className='RegisterInput' type="email" id="email" name="email" value={formData.email} placeholder='이메일 형식에 맞게 작성하세요.'
                 onChange={handleChange} onBlur={validateEmail} required />
-              <div className='RegisterSendEmail' onClick={sendEmail}>인증요청</div>
+              {/* <div className='RegisterSendEmail' onClick={sendEmail}>인증요청</div> */}
             </div>
             <div className='RegisterMemberErrorArea'>
               <div className='blank_div'></div>
@@ -307,7 +307,7 @@ const RegisterMember = () => {
             </div>
           </div>
 
-          <div className="RegisterMemberInputBox">
+          {/* <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
               <label htmlFor="emailCode">인증번호</label>
               <input className='RegisterInput' type="text" id="emailCode" name="emailCode" value={formData.emailCode} placeholder='인증번호 입력'
@@ -319,7 +319,7 @@ const RegisterMember = () => {
               {emailVerifyError && <span className="error">{emailVerifyError}</span>}
               {emailVerifySuccess && <span className="success">{emailVerifySuccess}</span>}
             </div>
-          </div>
+          </div> */}
 
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
