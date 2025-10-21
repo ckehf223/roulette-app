@@ -10,7 +10,6 @@ function Weather() {
     const fetchWeather = async () => {
       try {
         const response = await instance.get("/weather/today?nx=60&ny=127");
-        debugger
         if (response.data.status === 'fail') {
           console.error(response.data.message);
           return;

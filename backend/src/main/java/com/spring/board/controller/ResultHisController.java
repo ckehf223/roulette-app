@@ -24,9 +24,14 @@ public class ResultHisController {
     public ResponseEntity<List<CamelCaseMap>> findResultHisList(ResultHisDto resultHisDto){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
-        if(user != null && "USER".equals(user.getRole())){
+        if(user != null && "ADMIN".equals(user.getRole())){
+            resultHisDto.setUserId(null);
+        }else if(user != null && "USER".equals(user.getRole())){
             resultHisDto.setUserId(user.getUserId());
+        }else {
+            return ResponseEntity.ok(null);
         }
+
         return ResponseEntity.ok(resultService.findResultHisList(resultHisDto));
     }
 

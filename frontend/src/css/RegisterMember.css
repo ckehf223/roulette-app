@@ -57,7 +57,7 @@
 .RegisterMemberInputArea label {
   display: block;
   font-size: 15px;
-  width: 130px;
+  width: 110px;
   margin-left: 10px;
   text-align: left;
 }
@@ -70,7 +70,7 @@
 .RegisterInput {
   position: relative;
   height: 40px;
-  width: 100%;
+  width: 50%;
   max-width: 350px; 
   border: none;
   outline: none;
@@ -89,22 +89,22 @@
   /* border-bottom: 2px solid rgba(208, 208, 208, 0.5); */
   height: 40px;
 }
+.password-toggle{
+  text-align: center;
+  min-width: 80px;
+}
 .EyeSlashIcon {
   font-size: 20px;
   cursor: pointer;
-  position: absolute;
-  right: 25px;
-  top: 18px;
 }
 .RegisterMemberErrorArea {
   display: flex;
-  /* margin-left: 130px; */
 }
 
 .blank_div {
   display: block;
   font-size: 15px;
-  width: 130px;
+  width: 120px;
   margin-left: 10px;
   text-align: left;
 }
@@ -120,6 +120,19 @@
   font-size: 15px;
   margin-top: 5px;
   text-align: left;
+}
+
+.RegisterSendEmail{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 7px;;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.RegisterSendEmail:hover{
+  background-color: #817f7f;
 }
 
 .register-button {

@@ -1,17 +1,10 @@
 package com.spring.board.service;
 
 import com.spring.board.dto.MemberDto;
-import com.spring.board.entity.Member;
 import com.spring.board.mapper.MemberMapper;
-import com.spring.board.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

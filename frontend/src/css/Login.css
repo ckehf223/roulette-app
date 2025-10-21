@@ -66,10 +66,6 @@
   border: none;
 }
 
-.password-toggle {
-  margin-right: 15px;
-  cursor: pointer;
-}
 .LoginMainCheckMessageArea {
   padding: 0 10px;
   margin-bottom: 10px;

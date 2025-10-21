@@ -1,4 +1,4 @@
-package com.spring.board.ustrarouletteapp;
+package com.spring.board;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +7,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @SpringBootTest
-class UstraRouletteAppApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
+public class TestMailSend {
 
     @Autowired
     private JavaMailSender mailSender;
@@ -20,12 +16,9 @@ class UstraRouletteAppApplicationTests {
     void testMail() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo("ckehf223@naver.com");
-        message.setFrom("ckehf223@naver.com");
         message.setSubject("메일 테스트");
         message.setText("SMTP 테스트입니다.");
         mailSender.send(message);
         System.out.println("✅ 메일 전송 성공!");
     }
-
-
 }

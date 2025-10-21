@@ -16,7 +16,7 @@ const RegisterMember = () => {
     password: '',
     passwordCheck: '',
     username: '',
-    // emailCode: '',
+    emailCode: '',
   });
 
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -59,28 +59,7 @@ const RegisterMember = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (userNameError) {
-      alert('유효한 아이디를 입력해주세요.');
-      return;
-    }
-
-    if (userEmailError) {
-      alert('유효한 이메일을 입력해주세요.');
-      return;
-    }
-
-    // if (!isVerifyEmail) {
-    //   alert('이메일 인증을 완료해주세요.');
-    //   return;
-    // }
-
-    if (passwordError) {
-      alert('유효한 비밀번호를 입력해주세요.');
-      return;
-    }
-
-    if (passwordCheckError) {
-      alert('비밀번호가 일치하지 않습니다.');
+    if (invalid()) {
       return;
     }
 
@@ -105,6 +84,55 @@ const RegisterMember = () => {
     }
 
   };
+
+  const invalid = () => {
+    if (!formData.username) {
+      alert('아이디를 입력해주세요.');
+      return true;
+    }
+
+    if (userNameError) {
+      alert('유효한 아이디를 입력해주세요.');
+      return true;
+    }
+
+    if (!formData.email) {
+      alert('이메일을 입력해주세요.');
+      return true;
+    }
+
+    if (userEmailError) {
+      alert('유효한 이메일을 입력해주세요.');
+      return true;
+    }
+
+    if (!isVerifyEmail) {
+      alert('이메일 인증을 완료해주세요.');
+      return true;
+    }
+
+    if (!formData.password) {
+      alert('비밀번호를 입력해주세요.');
+      return true;
+    }
+
+    if (passwordError) {
+      alert('유효한 비밀번호를 입력해주세요.');
+      return true;
+    }
+
+    if (!formData.passwordCheck) {
+      alert('비밀번호 확인을 입력해주세요.');
+      return true;
+    }
+
+    if (passwordCheckError) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return true;
+    }
+
+    return false;
+  }
 
   const validateUsername = async (e) => {
     if (!formData.username) {
@@ -176,6 +204,11 @@ const RegisterMember = () => {
   };
 
   const sendEmail = () => {
+    if (!formData.email) {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+
     if (!validEmail) {
       alert('유효한 이메일을 입력해주세요.');
       return;
@@ -191,6 +224,7 @@ const RegisterMember = () => {
           setUserEmailSuccess(response.data);
           setIsSendEmail(true);
         } else {
+          setUserEmailError('이메일 전송 실패');
           setIsSendEmail(false);
         }
       })
@@ -241,7 +275,7 @@ const RegisterMember = () => {
         }
       })
     } catch (error) {
-      console.log("회원가입시 에러 발생" + error)
+      console.log("인증번호 확인중 에러 발생" + error)
     }
   }
 
@@ -292,13 +326,12 @@ const RegisterMember = () => {
             </div>
           </div>
 
-
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
               <label htmlFor="email"><span className='InputStarSpan'>*</span> 이메일</label>
               <input className='RegisterInput' type="email" id="email" name="email" value={formData.email} placeholder='이메일 형식에 맞게 작성하세요.'
                 onChange={handleChange} onBlur={validateEmail} required />
-              {/* <div className='RegisterSendEmail' onClick={sendEmail}>인증요청</div> */}
+              <div className='RegisterSendEmail cursor-p' onClick={sendEmail}>인증요청</div>
             </div>
             <div className='RegisterMemberErrorArea'>
               <div className='blank_div'></div>
@@ -307,19 +340,19 @@ const RegisterMember = () => {
             </div>
           </div>
 
-          {/* <div className="RegisterMemberInputBox">
+          <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>
-              <label htmlFor="emailCode">인증번호</label>
+              <label htmlFor="emailCode"><span className='InputStarSpan'>*</span>인증번호</label>
               <input className='RegisterInput' type="text" id="emailCode" name="emailCode" value={formData.emailCode} placeholder='인증번호 입력'
                 onChange={handleChange} />
-              <div className='RegisterSendEmail' onClick={sendVerify}>인증번호확인</div>
+              <div className='RegisterSendEmail cursor-p' onClick={sendVerify}>인증번호 확인</div>
             </div>
             <div className='RegisterMemberErrorArea'>
               <div className='blank_div'></div>
               {emailVerifyError && <span className="error">{emailVerifyError}</span>}
               {emailVerifySuccess && <span className="success">{emailVerifySuccess}</span>}
             </div>
-          </div> */}
+          </div>
 
           <div className="RegisterMemberInputBox">
             <div className='RegisterMemberInputArea'>

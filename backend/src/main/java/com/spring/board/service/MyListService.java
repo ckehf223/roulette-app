@@ -6,6 +6,8 @@ import com.spring.board.dto.RestaurantDto;
 import com.spring.board.dto.ResultHisDto;
 import com.spring.board.mapper.MyListMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +18,12 @@ public class MyListService {
 
     private final MyListMapper myListMapper;
 
+    @Cacheable(value = "myRestaurantList", key = "#myListDto.userId")
     public List<CamelCaseMap> findMyList(MyListDto myListDto) {
         return myListMapper.findMyList(myListDto);
     }
 
+    @CacheEvict(value = "myRestaurantList", key = "#myListDto.userId")
     public Integer save(MyListDto myListDto) {
         Integer result = 0;
         switch(myListDto.getStatus()){

@@ -6,63 +6,67 @@ import foodList from '/src/common/foodList';
 import { useAuth } from '/src/common/AuthContext';
 import '/src/css/RestaurantList.css';
 import { useNavigate } from 'react-router-dom';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
-  const [resList, setResList] = useState([]);
   const [isOpenBtn, setIsOpenBtn] = useState(false);
   const { isModalOpen, toggleModal } = useModal();
   const [selectedItem, setSelectedItem] = useState({});
-  const [activeTab, setActiveTab] = useState("sharelist");
+  const [activeTab, setActiveTab] = useState('sharelist');
   const { isAuthenticated, role } = useAuth();
   const nav = useNavigate();
+  const queryClient = useQueryClient();
 
   const countRef = useRef(count);
   useEffect(() => {
     countRef.current = count;
   }, [count]);
 
-  const getResList = async () => {
-    let url = `/${activeTab}/find`;
-    try {
-      const response = await instance.get(url);
-      setResList(response.data);
+  const { data: resList = [], isLoading, isError } = useQuery({
+    queryKey: ['restaurantList', activeTab],
+    queryFn: async () => {
+      const res = await instance.get(`/${activeTab}/find`);
       setIsOpenBtn(true);
-    } catch (error) {
-      setResList(foodList);
+      return res.data;
+    },
+    onError: () => {
       setIsOpenBtn(false);
-      console.error("식당 리스트 로딩중 에러 발생" + error);
-    }
-  }
+      return foodList;
+    },
+    staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 10,
+  });
 
-  useEffect(() => {
-    getResList();
-  }, [activeTab])
+  const reloadResList = () => {
+    queryClient.invalidateQueries(['restaurantList', activeTab]);
+  };
 
   const openResModal = (id) => {
     setSelectedItem({});
     if (id) {
-      let selected = resList.find((item) => String(item.id) === String(id));
+      const selected = resList.find((item) => String(item.id) === String(id));
       setSelectedItem(selected);
     }
     toggleModal();
   };
 
   const changeActiveTab = (type) => {
-    if (activeTab === type) {
-      return;
-    }
+    if (activeTab === type) return;
 
     if (!isAuthenticated && type === 'myList') {
       nav('/login');
       return;
     }
-
     setActiveTab(type);
-  }
+  };
 
-
-  const randomShuffle = async () => {
+  const randomShuffle = () => {
     if (!resList?.length) return;
+
+    if (resList.length < countRef.current) {
+      alert('룰렛의 갯수보다 리스트가 적어 랜덤기능 사용이 불가합니다.');
+      return;
+    }
 
     const pool = [...resList];
     for (let i = pool.length - 1; i > 0; i--) {
@@ -83,54 +87,69 @@ const RestaurantList = ({ onSelect, onOpenLink, onRandomSet, count }) => {
     }
 
     onRandomSet(pickedList);
-
   };
 
+  if (isLoading) return <div className="aside-container"><p>Loading...</p></div>;
+  if (isError) return <div className="aside-container"><p>데이터 불러오기 실패</p></div>;
+
   return (
-    <div className='aside-container'>
-      <div className='aside-box' >
-        <div className='fw-bold'>Store List</div>
-        <div className='buttons'>
-          <div className='is-random' onClick={() => { randomShuffle() }}></div>
-          {isOpenBtn && (activeTab === "myList" || role === "ADMIN") && <button className='is-secondary' onClick={() => { openResModal() }}>Add</button>}
+    <div className="aside-container">
+      <div className="aside-box">
+        <div className="fw-bold">Store List</div>
+        <div className="buttons">
+          <div className="is-random" onClick={randomShuffle}></div>
+          {isOpenBtn && (activeTab === 'myList' || role === 'ADMIN') && (
+            <button className="is-secondary" onClick={() => openResModal()}>
+              Add
+            </button>
+          )}
         </div>
       </div>
-      <div className='card'>
+
+      <div className="card">
         <div className="tab-container">
-          <div className={`tab-btn img-home ${activeTab === "sharelist" ? "active" : ""}`} onClick={() => changeActiveTab("sharelist")}></div>
-          <div className={`tab-btn img-star ${activeTab === "myList" ? "active" : ""}`} onClick={() => changeActiveTab("myList")}></div>
-          <div className='tab-blank'> </div>
+          <div
+            className={`tab-btn img-home ${activeTab === 'sharelist' ? 'active' : ''}`}
+            onClick={() => changeActiveTab('sharelist')}
+          ></div>
+          <div
+            className={`tab-btn img-star ${activeTab === 'myList' ? 'active' : ''}`}
+            onClick={() => changeActiveTab('myList')}
+          ></div>
+          <div className="tab-blank"></div>
         </div>
-        <ul className='menu-list'>
-          {resList.map((obj, idx) => (
+
+        <ul className="menu-list">
+          {resList.map((obj) => (
             <li key={obj.name} className="menu-card">
-              <span className="menu-text tooltip-wrapper" onClick={() => { openResModal(obj.id) }}>
+              <span className="menu-text tooltip-wrapper" onClick={() => openResModal(obj.id)}>
                 {obj.name}
-                <span className="tooltip-text" >{obj.remark}</span>
+                <span className="tooltip-text">{obj.remark}</span>
               </span>
-              <div className='menu-card-buttons'>
-                {activeTab === "sharelist" && <div className='menu-card-title'>{obj.cnt}</div>}
+              <div className="menu-card-buttons">
+                {activeTab === 'sharelist' && <div className="menu-card-title">{obj.cnt}</div>}
                 <button className="menu-card-button" onClick={() => onSelect(obj.name)}>
-                  <div className='add-icon'></div>
+                  <div className="add-icon"></div>
                 </button>
                 <button className="menu-card-button" onClick={() => onOpenLink(obj.linkUrl)}>
-                  <div className='link-icon'></div>
+                  <div className="link-icon"></div>
                 </button>
               </div>
             </li>
           ))}
         </ul>
       </div>
+
       <ResModal
         isOpen={isModalOpen}
         toggle={openResModal}
         title="Edit store"
-        reload={getResList}
+        reload={reloadResList}
         role={role}
         type={activeTab}
         selectedItem={selectedItem}
       ></ResModal>
-    </div >
+    </div>
   );
 };
 
